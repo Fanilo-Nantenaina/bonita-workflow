@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessObjectModel xmlns="http://documentation.bonitasoft.com/bdm-xml-schema/1.0" modelVersion="1.0">
+    <businessObjects>
+        <businessObject qualifiedName="com.company.model.Article">
+            <description>Référentiel des articles de dotation chambre (gel douche, papier hygiénique, pantoufle, brosse à dents).</description>
+            <fields>
+                <field type="STRING" length="20" name="codeArticle" nullable="false" collection="false"/>
+                <field type="STRING" length="50" name="libelle" nullable="false" collection="false"/>
+                <field type="INTEGER" length="255" name="seuilAlerte" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints>
+                <uniqueConstraint name="codeArticle_UNIQUE">
+                    <fieldNames>
+                        <fieldName>codeArticle</fieldName>
+                    </fieldNames>
+                </uniqueConstraint>
+            </uniqueConstraints>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.Chambre">
+            <description>Chambre de l'hôtel avec sa catégorie tarifaire et son état courant (Propre/Occupée/Sale).</description>
+            <fields>
+                <field type="STRING" length="10" name="numero" nullable="false" collection="false"/>
+                <field type="STRING" length="20" name="categorie" nullable="false" collection="false"/>
+                <field type="DOUBLE" length="255" name="tarifNuit" nullable="false" collection="false"/>
+                <field type="STRING" length="15" name="statut" nullable="false" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="dateCreation" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints>
+                <uniqueConstraint name="numero_UNIQUE">
+                    <fieldNames>
+                        <fieldName>numero</fieldName>
+                    </fieldNames>
+                </uniqueConstraint>
+            </uniqueConstraints>
+            <queries>
+                <query name="findByStatutAndCategorie" content="SELECT c&#13;&#10;FROM Chambre c&#13;&#10;WHERE c.statut = :statut&#13;&#10;   AND c.categorie = :categorie&#13;&#10;ORDER BY c.numero ASC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="categorie" className="java.lang.String"/>
+                        <queryParameter name="statut" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+                <query name="findDisponibles" content="SELECT c&#13;&#10;FROM Chambre c&#13;&#10;WHERE c.statut = 'PROPRE'&#13;&#10;ORDER BY c.categorie, c.numero" returnType="java.util.List">
+                    <queryParameters/>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.CommandeResto">
+            <description>Commande passée au restaurant. Pivot de la bascule de facturation Option A : si modePaiement=CHAMBRE, idFactureChambre pointe vers la Facture chambre du client logé.</description>
+            <fields>
+                <field type="LONG" length="255" name="idClient" nullable="false" collection="false"/>
+                <field type="LONG" length="255" name="idFactureChambre" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="montantTotal" nullable="false" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="dateCommande" nullable="false" collection="false"/>
+                <field type="STRING" length="10" name="modePaiement" nullable="false" collection="false"/>
+                <field type="STRING" length="10" name="statut" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="findByFactureChambre" content="SELECT c&#13;&#10;FROM CommandeResto c&#13;&#10;WHERE c.idFactureChambre = :idFactureChambre&#13;&#10;  AND c.modePaiement = 'CHAMBRE'&#13;&#10;ORDER BY c.dateCommande ASC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idFactureChambre" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.DotationChambre">
+            <description>Table de jointure : pour chaque chambre, la quantité d'un article qui doit y être présente après ménage.</description>
+            <fields>
+                <field type="LONG" length="255" name="idChambre" nullable="false" collection="false"/>
+                <field type="LONG" length="255" name="idArticle" nullable="false" collection="false"/>
+                <field type="INTEGER" length="255" name="quantiteRequise" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="findByChambre" content="SELECT d&#13;&#10;FROM DotationChambre d&#13;&#10;WHERE d.idChambre = :idChambre" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idChambre" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+                <query name="findByChambreAndArticle" content="SELECT d&#13;&#10;FROM DotationChambre d&#13;&#10;WHERE d.idChambre = :idChambre&#13;&#10;  AND d.idArticle = :idArticle" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idChambre" className="java.lang.Long"/>
+                        <queryParameter name="idArticle" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.Facture">
+            <description>Facture émise pour une réservation. Contient des lignes hôtel et éventuellement restaurant (cas bascule). Numéro de facture unique.</description>
+            <fields>
+                <field type="STRING" length="20" name="numeroFacture" nullable="false" collection="false"/>
+                <field type="LONG" length="255" name="idReservation" nullable="false" collection="false"/>
+                <field type="DOUBLE" length="255" name="montantTotal" nullable="false" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="dateEmission" nullable="false" collection="false"/>
+                <field type="STRING" length="10" name="statut" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints>
+                <uniqueConstraint name="numeroFacture_UNIQUE">
+                    <fieldNames>
+                        <fieldName>numeroFacture</fieldName>
+                    </fieldNames>
+                </uniqueConstraint>
+            </uniqueConstraints>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.LigneCommande">
+            <description>Ligne de détail d'une CommandeResto (un menu item + quantité + prix snapshot au moment de la commande).</description>
+            <fields>
+                <field type="LONG" length="255" name="idCommande" nullable="false" collection="false"/>
+                <field type="LONG" length="255" name="idMenuItem" nullable="false" collection="false"/>
+                <field type="INTEGER" length="255" name="quantite" nullable="false" collection="false"/>
+                <field type="DOUBLE" length="255" name="prixUnitaire" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="findByCommande" content="SELECT l&#13;&#10;FROM LigneCommande l&#13;&#10;WHERE l.idCommande = :idCommande&#13;&#10;ORDER BY l.persistenceId ASC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idCommande" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.LigneFacture">
+            <description>Ligne de détail d'une facture. Clé de traçabilité comptable hôtel/restaurant via l'attribut origine.</description>
+            <fields>
+                <field type="LONG" length="255" name="idFacture" nullable="false" collection="false"/>
+                <field type="STRING" length="100" name="libelle" nullable="false" collection="false"/>
+                <field type="DOUBLE" length="255" name="montant" nullable="false" collection="false"/>
+                <field type="STRING" length="15" name="origine" nullable="false" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="dateAjout" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="findByFacture" content="SELECT l&#13;&#10;FROM LigneFacture l&#13;&#10;WHERE l.idFacture = :idFacture&#13;&#10;ORDER BY l.dateAjout ASC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idFacture" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+                <query name="countByDateAndOrigine" content="SELECT COUNT(l)&#13;&#10;FROM LigneFacture l&#13;&#10;WHERE l.dateAjout &gt;= :dateDebut&#13;&#10;  AND l.dateAjout &lt; :dateFin&#13;&#10;  AND l.origine = :origine" returnType="java.lang.Long">
+                    <queryParameters>
+                        <queryParameter name="dateDebut" className="java.time.LocalDateTime"/>
+                        <queryParameter name="dateFin" className="java.time.LocalDateTime"/>
+                        <queryParameter name="origine" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+                <query name="sumMontantByDateAndOrigine" content="SELECT COALESCE(SUM(l.montant), 0.0)&#13;&#10;FROM LigneFacture l&#13;&#10;WHERE l.dateAjout &gt;= :dateDebut&#13;&#10;  AND l.dateAjout &lt; :dateFin&#13;&#10;  AND l.origine = :origine" returnType="java.lang.Double">
+                    <queryParameters>
+                        <queryParameter name="dateDebut" className="java.time.LocalDateTime"/>
+                        <queryParameter name="dateFin" className="java.time.LocalDateTime"/>
+                        <queryParameter name="origine" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.MenuItem">
+            <description>Référentiel des items du menu restaurant. Catalogue diffusé sur le site web et la page Facebook.
+</description>
+            <fields>
+                <field type="STRING" length="20" name="codeMenu" nullable="false" collection="false"/>
+                <field type="STRING" length="100" name="libelle" nullable="false" collection="false"/>
+                <field type="DOUBLE" length="255" name="prix" nullable="false" collection="false"/>
+                <field type="STRING" length="20" name="categorieMenu" nullable="false" collection="false"/>
+                <field type="BOOLEAN" length="255" name="disponible" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints>
+                <uniqueConstraint name="codeMenu_UNIQUE">
+                    <fieldNames>
+                        <fieldName>codeMenu</fieldName>
+                    </fieldNames>
+                </uniqueConstraint>
+            </uniqueConstraints>
+            <queries>
+                <query name="findDisponiblesByCategorie" content="SELECT m&#13;&#10;FROM MenuItem m&#13;&#10;WHERE m.categorieMenu = :categorieMenu&#13;&#10;  AND m.disponible = true&#13;&#10;ORDER BY m.libelle ASC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="categorieMenu" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.Reservation">
+            <description>Réservation d'une chambre par un client pour une période donnée.&#13;
+Machine à états : EN_COURS → PAYEE → TERMINEE | ANNULEE.</description>
+            <fields>
+                <field type="LONG" length="255" name="idClient" nullable="false" collection="false"/>
+                <field type="LONG" length="255" name="idChambre" nullable="false" collection="false"/>
+                <field type="LOCALDATE" length="255" name="dateArrivee" nullable="false" collection="false"/>
+                <field type="INTEGER" length="255" name="nombreNuits" nullable="false" collection="false"/>
+                <field type="STRING" length="15" name="statut" nullable="false" collection="false"/>
+                <field type="BOOLEAN" length="255" name="pieceIdentiteOK" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="dateCreation" nullable="false" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="findActiveByClient" content="SELECT r&#13;&#10;FROM Reservation r&#13;&#10;WHERE r.idClient = :idClient&#13;&#10;  AND r.statut IN ('EN_COURS', 'PAYEE')&#13;&#10;ORDER BY r.dateCreation DESC" returnType="java.util.List">
+                    <queryParameters>
+                        <queryParameter name="idClient" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.StockArticle">
+            <description>État courant du stock magasin pour chaque article. Une ligne par article (relation 1↔1 avec Article via idArticle).</description>
+            <fields>
+                <field type="LONG" length="255" name="idArticle" nullable="false" collection="false"/>
+                <field type="INTEGER" length="255" name="quantiteDisponible" nullable="false" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="derniereMaj" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints>
+                <uniqueConstraint name="idArticle_UNIQUE">
+                    <fieldNames>
+                        <fieldName>idArticle</fieldName>
+                    </fieldNames>
+                </uniqueConstraint>
+            </uniqueConstraints>
+            <queries>
+                <query name="findAllSousSeuil" content="SELECT s&#13;&#10;FROM StockArticle s, Article a&#13;&#10;WHERE s.idArticle = a.persistenceId&#13;&#10;  AND s.quantiteDisponible &lt; a.seuilAlerte&#13;&#10;ORDER BY s.quantiteDisponible ASC" returnType="java.util.List">
+                    <queryParameters/>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
+    </businessObjects>
+</businessObjectModel>
