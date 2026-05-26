@@ -882,33 +882,10 @@
         <defaultValue xmi:type="expression:Expression" xmi:id="_s7xOIVgmEfGdDbxhXoGIsw" name="init_facture()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Facture"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_xtyLoFgmEfGdDbxhXoGIsw" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_xtyLoVgmEfGdDbxhXoGIsw" name="init_reservation()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;import org.bonitasoft.engine.identity.UserNotFoundException&#xD;&#xA;&#xD;&#xA;if (typeServiceInput != 'CHAMBRE') {&#xD;&#xA;    return null&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;try{&#xD;&#xA;&#x9;def processInitiator = apiAccessor.getIdentityAPI().getUser(apiAccessor.getProcessAPI()&#xD;&#xA;&#x9;&#x9;&#x9;.getProcessInstance(processInstanceId)&#xD;&#xA;&#x9;&#x9;&#x9;.getStartedBy())&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;def reservationVar = new com.company.model.Reservation()&#xD;&#xA;&#x9;reservationVar.idClient = processInitiator.id&#xD;&#xA;&#x9;reservationVar.idChambre = idChambreInput&#xD;&#xA;&#x9;reservationVar.dateArrivee = dateArriveeInput&#xD;&#xA;&#x9;reservationVar.nombreNuits = nombreNuitsInput&#xD;&#xA;&#x9;reservationVar.statut = 'EN_COURS'&#xD;&#xA;&#x9;reservationVar.dateCreation = LocalDateTime.now()&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;return reservationVar&#xD;&#xA;&#x9;&#xD;&#xA;}catch(UserNotFoundException e){&#xD;&#xA;    throw new RuntimeException(&quot;Impossible de récupérer l'initiateur du processus : &quot; + e.getMessage(), e)&#xD;&#xA;}&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Reservation">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_Gl69EFi0EfGcr_ZmOb_yGw" name="typeServiceInput" description="Choix client à l'instanciation : CHAMBRE ou RESTO. Pilote la XOR juste après le StartEvent">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Gl69EVi0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_Gl69Eli0EfGcr_ZmOb_yGw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_Gl69E1i0EfGcr_ZmOb_yGw" name="apiAccessor" content="apiAccessor" type="TYPE_ENGINE_CONSTANT" returnType="org.bonitasoft.engine.api.APIAccessor"/>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_Gl69FFi0EfGcr_ZmOb_yGw" name="dateArriveeInput" type="LOCALDATE" description="Si typeServiceInput=CHAMBRE : jour d'arrivée du client (>= aujourd'hui). Null si RESTO">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Gl69FVi0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_Gl69Fli0EfGcr_ZmOb_yGw" name="nombreNuitsInput" type="INTEGER" description="Si typeServiceInput=CHAMBRE : nombre de nuitées (>= 1). Null si RESTO">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Gl69F1i0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_Gl69GFi0EfGcr_ZmOb_yGw" name="idChambreInput" type="LONG" description="Si typeServiceInput=CHAMBRE : persistenceId de la chambre choisie via findDisponibles(). Null si RESTO">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Gl69GVi0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-        </defaultValue>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_xtyLoVgmEfGdDbxhXoGIsw" name="init_reservation()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Reservation"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_3k7lMFgmEfGdDbxhXoGIsw" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_3k7lMVgmEfGdDbxhXoGIsw" name="init_chambreChoisie()" content="if (typeServiceInput != 'CHAMBRE' || idChambreInput == null) {&#xD;&#xA;    return null&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return chambreDAO.findByPersistenceId(idChambreInput)" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Chambre">
-          <referencedElements xmi:type="expression:Expression" xmi:id="_pEXHMFi0EfGcr_ZmOb_yGw" name="chambreDAO" content="chambreDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.ChambreDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_pEXHMVi0EfGcr_ZmOb_yGw" name="idChambreInput" type="LONG" description="Si typeServiceInput=CHAMBRE : persistenceId de la chambre choisie via findDisponibles(). Null si RESTO">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_pEXHMli0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_pEXHM1i0EfGcr_ZmOb_yGw" name="typeServiceInput" description="Choix client à l'instanciation : CHAMBRE ou RESTO. Pilote la XOR juste après le StartEvent">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_pEXHNFi0EfGcr_ZmOb_yGw"/>
-          </referencedElements>
-        </defaultValue>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_3k7lMVgmEfGdDbxhXoGIsw" name="init_chambreChoisie()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Chambre"/>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_FF5jIFhkEfG7wIzUbyU7wQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto">
         <defaultValue xmi:type="expression:Expression" xmi:id="_FF6KMFhkEfG7wIzUbyU7wQ" name="init_commandeResto()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;import org.bonitasoft.engine.identity.UserNotFoundException&#xD;&#xA;&#xD;&#xA;if (typeServiceInput != 'RESTO') {&#xD;&#xA;    return null&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;try{&#xD;&#xA;&#x9;def processInitiator = apiAccessor.getIdentityAPI().getUser(apiAccessor.getProcessAPI()&#xD;&#xA;&#x9;&#x9;&#x9;.getProcessInstance(processInstanceId)&#xD;&#xA;&#x9;&#x9;&#x9;.getStartedBy())&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;def commandeRestoVar = new com.company.model.CommandeResto()&#xD;&#xA;&#x9;commandeRestoVar.idClient = processInitiator.id&#xD;&#xA;&#x9;commandeRestoVar.dateCommande = LocalDateTime.now()&#xD;&#xA;&#x9;commandeRestoVar.statut = 'OUVERTE'&#xD;&#xA;&#x9;commandeRestoVar.montantTotal = 0.0d&#xD;&#xA;&#x9;commandeRestoVar.modePaiement = clientLogeInput ? 'BASCULE' : 'CASH'&#xD;&#xA;&#xD;&#xA;&#x9;if (clientLogeInput) {&#xD;&#xA;&#x9;&#x9;def reservations = reservationDAO.findActiveByClient(processInitiator.id, 0, 1)&#xD;&#xA;&#x9;&#x9;if (reservations != null &amp;&amp; !reservations.isEmpty()) {&#xD;&#xA;&#x9;&#x9;&#x9;commandeRestoVar.idReservationAssociee = reservations[0].persistenceId&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;return commandeRestoVar&#xD;&#xA;&#x9;&#xD;&#xA;}catch(UserNotFoundException e){&#xD;&#xA;&#x9;throw new RuntimeException(&quot;Impossible de récupérer l'initiateur du processus : &quot; + e.getMessage(), e)&#xD;&#xA;}&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.CommandeResto">
@@ -926,6 +903,13 @@
       <data xmi:type="process:Data" xmi:id="_PC5ocFkMEfGNAs_r4dbEXA" documentation="Variable transiente alimentée par connecteur Groovy. true = tous les articles au-dessus de leur seuil. false = au moins 1 article sous seuil." name="stockSuffisant" dataType="_mM713FfFEfGNssooKuF_YA">
         <defaultValue xmi:type="expression:Expression" xmi:id="_PC5ocVkMEfGNAs_r4dbEXA" content="" returnType="java.lang.Boolean"/>
       </data>
+      <data xmi:type="process:Data" xmi:id="_HtPt4FkqEfG0J6TzsKCRug" documentation="Persiste typeServiceInput au-delà de l'instanciation pour évaluation par XOR Chambre ou resto ?" name="typeServiceChoisi" dataType="_mM714VfFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_HtPt4VkqEfG0J6TzsKCRug" name="init_typeServiceChoisi()" content="typeServiceInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_o0hQwFkqEfG0J6TzsKCRug" name="typeServiceInput" description="Choix client à l'instanciation : CHAMBRE ou RESTO. Pilote la XOR juste après le StartEvent">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_o0hQwVkqEfG0J6TzsKCRug"/>
+          </referencedElements>
+        </defaultValue>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -942,8 +926,8 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_i9xVkFfGEfGNssooKuF_YA" name="Chambre" target="_dhhIQFfGEfGNssooKuF_YA" source="__iP4IFfFEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_i9xVkVfGEfGNssooKuF_YA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_i9xVklfGEfGNssooKuF_YA" name="newScript()" content="reservation != null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
-          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_mXlicFi1EfGcr_ZmOb_yGw" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+        <condition xmi:type="expression:Expression" xmi:id="_i9xVklfGEfGNssooKuF_YA" name="newScript()" content="typeServiceChoisi == 'CHAMBRE'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:Data" xmi:id="_15MoAFkqEfG0J6TzsKCRug" documentation="Persiste typeServiceInput au-delà de l'instanciation pour évaluation par XOR Chambre ou resto ?" name="typeServiceChoisi" dataType="_mM714VfFEfGNssooKuF_YA"/>
         </condition>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_oYM98FfGEfGNssooKuF_YA" target="_m5GisFfGEfGNssooKuF_YA" source="_mM71t1fFEfGNssooKuF_YA">
@@ -1124,15 +1108,6 @@
         <inputs xmi:type="process:ContractInput" xmi:id="_KqoakFiyEfGcr_ZmOb_yGw" name="typeServiceInput" description="Choix client à l'instanciation : CHAMBRE ou RESTO. Pilote la XOR juste après le StartEvent">
           <mapping xmi:type="process:ContractInputMapping" xmi:id="_KqoakViyEfGcr_ZmOb_yGw"/>
         </inputs>
-        <inputs xmi:type="process:ContractInput" xmi:id="_XXlOUFiyEfGcr_ZmOb_yGw" name="idChambreInput" type="LONG" description="Si typeServiceInput=CHAMBRE : persistenceId de la chambre choisie via findDisponibles(). Null si RESTO">
-          <mapping xmi:type="process:ContractInputMapping" xmi:id="_XXlOUViyEfGcr_ZmOb_yGw"/>
-        </inputs>
-        <inputs xmi:type="process:ContractInput" xmi:id="_YIBz0FiyEfGcr_ZmOb_yGw" name="dateArriveeInput" type="LOCALDATE" description="Si typeServiceInput=CHAMBRE : jour d'arrivée du client (>= aujourd'hui). Null si RESTO">
-          <mapping xmi:type="process:ContractInputMapping" xmi:id="_YIBz0ViyEfGcr_ZmOb_yGw"/>
-        </inputs>
-        <inputs xmi:type="process:ContractInput" xmi:id="_Y2320FiyEfGcr_ZmOb_yGw" name="nombreNuitsInput" type="INTEGER" description="Si typeServiceInput=CHAMBRE : nombre de nuitées (>= 1). Null si RESTO">
-          <mapping xmi:type="process:ContractInputMapping" xmi:id="_Y2320ViyEfGcr_ZmOb_yGw"/>
-        </inputs>
         <inputs xmi:type="process:ContractInput" xmi:id="_ZpTZUFiyEfGcr_ZmOb_yGw" name="clientLogeInput" type="BOOLEAN" description="Si typeServiceInput=RESTO : true si le client est logé à l'hôtel (bascule vers facture chambre). Null si CHAMBRE">
           <mapping xmi:type="process:ContractInputMapping" xmi:id="_ZpTZUViyEfGcr_ZmOb_yGw"/>
         </inputs>
@@ -1141,24 +1116,6 @@
         </constraints>
         <constraints xmi:type="process:ContractConstraint" xmi:id="_oHzDMFiyEfGcr_ZmOb_yGw" expression="typeServiceInput == null || typeServiceInput in ['CHAMBRE', 'RESTO']" errorMessage="Type de service invalide : CHAMBRE ou RESTO attendu." name="typeServiceInputValid">
           <inputNames>typeServiceInput</inputNames>
-        </constraints>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_ovYnoFiyEfGcr_ZmOb_yGw" expression="typeServiceInput != 'CHAMBRE' || idChambreInput != null" errorMessage="La chambre est obligatoire si le type de service est CHAMBRE." name="idChambreInputRequiredIfChambre">
-          <inputNames>idChambreInput</inputNames>
-          <inputNames>typeServiceInput</inputNames>
-        </constraints>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_pgwaMFiyEfGcr_ZmOb_yGw" expression="typeServiceInput != 'CHAMBRE' || dateArriveeInput != null" errorMessage="La date d'arrivée est obligatoire si le type de service est CHAMBRE." name="dateArriveeInputRequiredIfChambre">
-          <inputNames>dateArriveeInput</inputNames>
-          <inputNames>typeServiceInput</inputNames>
-        </constraints>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_qThT4FiyEfGcr_ZmOb_yGw" expression="typeServiceInput != 'CHAMBRE' || nombreNuitsInput != null" errorMessage="Le nombre de nuits est obligatoire si le type de service est CHAMBRE." name="nombreNuitsInputRequiredIfChambre">
-          <inputNames>nombreNuitsInput</inputNames>
-          <inputNames>typeServiceInput</inputNames>
-        </constraints>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_q_xV4FiyEfGcr_ZmOb_yGw" expression="nombreNuitsInput == null || nombreNuitsInput >= 1" errorMessage="Le nombre de nuits doit être au moins 1." name="nombreNuitsMin1">
-          <inputNames>nombreNuitsInput</inputNames>
-        </constraints>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_roPrIFiyEfGcr_ZmOb_yGw" expression="dateArriveeInput == null || !dateArriveeInput.isBefore(java.time.LocalDate.now())" errorMessage="La date d'arrivée ne peut pas être dans le passé." name="dateArriveeFuture">
-          <inputNames>dateArriveeInput</inputNames>
         </constraints>
         <constraints xmi:type="process:ContractConstraint" xmi:id="_sQbsgFiyEfGcr_ZmOb_yGw" expression="typeServiceInput != 'RESTO' || clientLogeInput != null" errorMessage="L'information &quot;client logé&quot; est obligatoire si le type de service est RESTO." name="clientLogeInputRequiredIfResto">
           <inputNames>clientLogeInput</inputNames>
