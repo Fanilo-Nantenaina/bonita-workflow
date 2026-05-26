@@ -494,11 +494,13 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_tFCggVfGEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_tFCgglfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_1NRy8FfGEfGNssooKuF_YA" target="_wdPLYFfGEfGNssooKuF_YA" source="_sSbX0FfGEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_1NRy8FfGEfGNssooKuF_YA" name="loge" target="_wdPLYFfGEfGNssooKuF_YA" source="_sSbX0FfGEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_1NRy8VfGEfGNssooKuF_YA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_1NRy8lfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_1NRy8lfGEfGNssooKuF_YA" name="newScript()" content="commandeResto.idReservationAssociee != null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_bhbmUFi3EfGcr_ZmOb_yGw" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+        </condition>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_1pvsgFfGEfGNssooKuF_YA" target="_yEDYMFfGEfGNssooKuF_YA" source="_sSbX0FfGEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_1pvsgFfGEfGNssooKuF_YA" name="exterieur" target="_yEDYMFfGEfGNssooKuF_YA" source="_sSbX0FfGEfGNssooKuF_YA" isDefault="true">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_1pvsgVfGEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_1pvsglfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -514,11 +516,13 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_lcdwIFfHEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_lcdwIVfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_l6GHUFfHEfGNssooKuF_YA" target="_kvO2sFfHEfGNssooKuF_YA" source="_hGcyIFfHEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_l6GHUFfHEfGNssooKuF_YA" name="disponible" target="_kvO2sFfHEfGNssooKuF_YA" source="_hGcyIFfHEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_l6GHUVfHEfGNssooKuF_YA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_l6GHUlfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_l6GHUlfHEfGNssooKuF_YA" name="newScript()" content="reservation.chambreDisponible" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_FozGIFi3EfGcr_ZmOb_yGw" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+        </condition>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_qoCdIFfHEfGNssooKuF_YA" target="_JzFfsFfPEfGNssooKuF_YA" source="_kvO2sFfHEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_qoCdIFfHEfGNssooKuF_YA" name="sale" target="_JzFfsFfPEfGNssooKuF_YA" source="_kvO2sFfHEfGNssooKuF_YA" isDefault="true">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_qoCdIVfHEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_qoCdIlfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -526,7 +530,7 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_sJ870VfHEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_sJ870lfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_xg81sFfHEfGNssooKuF_YA" target="_xg7AgFfHEfGNssooKuF_YA" source="_hGcyIFfHEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_xg81sFfHEfGNssooKuF_YA" name="indisponible" target="_xg7AgFfHEfGNssooKuF_YA" source="_hGcyIFfHEfGNssooKuF_YA" isDefault="true">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_xg81sVfHEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_xg81slfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -534,9 +538,11 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_1VeQOVfHEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_1VeQOlfHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_D15Mu1fIEfGNssooKuF_YA" target="_GpQFIFfIEfGNssooKuF_YA" source="_kvO2sFfHEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_D15Mu1fIEfGNssooKuF_YA" name="propre" target="_GpQFIFfIEfGNssooKuF_YA" source="_kvO2sFfHEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_D15zwFfIEfGNssooKuF_YA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_D15zwVfIEfGNssooKuF_YA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_D15zwVfIEfGNssooKuF_YA" name="newScript()" content="reservation.chambrePropre" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_PLRh8Fi3EfGcr_ZmOb_yGw" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+        </condition>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_FlLZAVfIEfGNssooKuF_YA" target="_HEJRYFfIEfGNssooKuF_YA" source="_GpQFIFfIEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_FlLZAlfIEfGNssooKuF_YA"/>
@@ -550,13 +556,15 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_S99_GFfIEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_S99_GVfIEfGNssooKuF_YA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_Z1aYAFfIEfGNssooKuF_YA" target="_1VeQMFfHEfGNssooKuF_YA" source="_k4Q6EFfLEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_Z1aYAFfIEfGNssooKuF_YA" name="refusee" target="_1VeQMFfHEfGNssooKuF_YA" source="_k4Q6EFfLEfGNssooKuF_YA" isDefault="true">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_Z1aYAVfIEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_Z1aYAlfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_lE0PvFfIEfGNssooKuF_YA" target="_lxiLwFfIEfGNssooKuF_YA" source="_k4Q6EFfLEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_lE0PvFfIEfGNssooKuF_YA" name="acceptee" target="_lxiLwFfIEfGNssooKuF_YA" source="_k4Q6EFfLEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_lE02wFfIEfGNssooKuF_YA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_lE02wVfIEfGNssooKuF_YA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <condition xmi:type="expression:Expression" xmi:id="_lE02wVfIEfGNssooKuF_YA" name="newScript()" content="reservation.factureAcceptee" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_k4VrUFi3EfGcr_ZmOb_yGw" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+        </condition>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_zn764VfIEfGNssooKuF_YA" target="_0L91AFfIEfGNssooKuF_YA" source="_lxiLwFfIEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_zn764lfIEfGNssooKuF_YA"/>
@@ -1113,7 +1121,7 @@
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_xg81s1fHEfGNssooKuF_YA" type="4001" element="_xg81sFfHEfGNssooKuF_YA" source="_hGdZMFfHEfGNssooKuF_YA" target="_xg7AiVfHEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_xg9cwFfHEfGNssooKuF_YA" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_xg9cwVfHEfGNssooKuF_YA" y="-10"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_xg9cwVfHEfGNssooKuF_YA" x="23" y="8"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_xg81tFfHEfGNssooKuF_YA" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_xg81tVfHEfGNssooKuF_YA" points="[0, -21, -151, 87]$[0, -108, -151, 0]$[70, -108, -81, 0]"/>
@@ -1163,7 +1171,7 @@
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_lE02wlfIEfGNssooKuF_YA" type="4001" element="_lE0PvFfIEfGNssooKuF_YA" source="_k4RhI1fLEfGNssooKuF_YA" target="_lxiLzVfIEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_lE02xVfIEfGNssooKuF_YA" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_lE02xlfIEfGNssooKuF_YA" y="-10"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lE02xlfIEfGNssooKuF_YA" x="1" y="-51"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_lE02w1fIEfGNssooKuF_YA" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_lE02xFfIEfGNssooKuF_YA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
