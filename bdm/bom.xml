@@ -52,6 +52,7 @@
             <fields>
                 <field type="LONG" length="255" name="idClient" nullable="false" collection="false"/>
                 <field type="LONG" length="255" name="idFactureChambre" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="idReservationAssociee" nullable="true" collection="false"/>
                 <field type="DOUBLE" length="255" name="montantTotal" nullable="false" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="dateCommande" nullable="false" collection="false"/>
                 <field type="STRING" length="10" name="modePaiement" nullable="false" collection="false"/>
@@ -197,6 +198,9 @@ Machine à états : EN_COURS → PAYEE → TERMINEE | ANNULEE.</description>
                 <field type="STRING" length="15" name="statut" nullable="false" collection="false"/>
                 <field type="BOOLEAN" length="255" name="pieceIdentiteOK" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="dateCreation" nullable="false" collection="false"/>
+                <field type="BOOLEAN" length="255" name="chambreDisponible" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="chambrePropre" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="factureAcceptee" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
