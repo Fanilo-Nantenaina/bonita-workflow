@@ -32,6 +32,37 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_dhhIQlfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_dhhIQVfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_dhhIQ1fGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_0Pd4MFl5EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_0Pd4MVl5EfG0J6TzsKCRug" name="reservation" content="reservation" type="TYPE_VARIABLE" returnType="com.company.model.Reservation">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_2NOlYFl5EfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_0Pd4Mll5EfG0J6TzsKCRug" name="creerReservation()" content="import java.time.LocalDateTime&#xD;&#xA;import org.bonitasoft.engine.identity.User&#xD;&#xA;import org.bonitasoft.engine.identity.UserNotFoundException&#xD;&#xA;&#xD;&#xA;try{&#xD;&#xA;&#x9;def processInitiator = apiAccessor.getIdentityAPI().getUser(apiAccessor.getProcessAPI()&#xD;&#xA;&#x9;&#x9;&#x9;.getProcessInstance(processInstanceId)&#xD;&#xA;&#x9;&#x9;&#x9;.getStartedBy())&#xD;&#xA;&#xD;&#xA;&#x9;def reservationVar = new com.company.model.Reservation()&#xD;&#xA;&#x9;reservationVar.idClient = processInitiator.id&#xD;&#xA;&#x9;reservationVar.idChambre = idChambreInput&#xD;&#xA;&#x9;reservationVar.dateArrivee = dateArriveeInput&#xD;&#xA;&#x9;reservationVar.nombreNuits = nombreNuitsInput&#xD;&#xA;&#x9;reservationVar.statut = 'EN_COURS'&#xD;&#xA;&#x9;reservationVar.dateCreation = LocalDateTime.now()&#xD;&#xA;&#x9;return reservationVar&#xD;&#xA;}catch(UserNotFoundException e){&#xD;&#xA;&#x9;throw new RuntimeException(&quot;Impossible de récupérer l'initiateur du processus : &quot; + e.getMessage(), e)&#xD;&#xA;}" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Reservation">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_C7bWUFl6EfG0J6TzsKCRug" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_C7bWUVl6EfG0J6TzsKCRug" name="dateArriveeInput" type="LOCALDATE" description="Jour d'arrivée du client">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_C7bWUll6EfG0J6TzsKCRug"/>
+              </referencedElements>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_C7bWU1l6EfG0J6TzsKCRug" name="apiAccessor" content="apiAccessor" type="TYPE_ENGINE_CONSTANT" returnType="org.bonitasoft.engine.api.APIAccessor"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_C7bWVFl6EfG0J6TzsKCRug" name="nombreNuitsInput" type="INTEGER" description="Nombre de nuitées (>= 1)">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_C7bWVVl6EfG0J6TzsKCRug"/>
+              </referencedElements>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_C7bWVll6EfG0J6TzsKCRug" name="idChambreInput" type="INTEGER" description="persistenceId de la chambre choisie (Long converti via .longValue() au lookup)">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_C7bWV1l6EfG0J6TzsKCRug"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_0Pd4M1l5EfG0J6TzsKCRug" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_E1UQIFl6EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_E1UQIVl6EfG0J6TzsKCRug" name="chambreChoisie" content="chambreChoisie" type="TYPE_VARIABLE" returnType="com.company.model.Chambre">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_FditwFl6EfG0J6TzsKCRug" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_E1UQIll6EfG0J6TzsKCRug" name="selectChambre()" content="return chambreDAO.findByPersistenceId(idChambreInput)" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Chambre">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_Ir9xkFl6EfG0J6TzsKCRug" name="chambreDAO" content="chambreDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.ChambreDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Ir9xkVl6EfG0J6TzsKCRug" name="idChambreInput" type="INTEGER" description="persistenceId de la chambre choisie (Long converti via .longValue() au lookup)">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_Ir9xkll6EfG0J6TzsKCRug"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_E1UQI1l6EfG0J6TzsKCRug" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_dhhIRFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_dhhIRVfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_dhhIRlfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -40,7 +71,32 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_dhhISlfGEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNgVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_dhhISVfGEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_dhhISVfGEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_DiB4wFl5EfG0J6TzsKCRug" name="idChambreInput" type="INTEGER" description="persistenceId de la chambre choisie (Long converti via .longValue() au lookup)">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_DiB4wVl5EfG0J6TzsKCRug"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_ENq2wFl5EfG0J6TzsKCRug" name="dateArriveeInput" type="LOCALDATE" description="Jour d'arrivée du client">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_ENq2wVl5EfG0J6TzsKCRug"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_E3OKEFl5EfG0J6TzsKCRug" name="nombreNuitsInput" type="INTEGER" description="Nombre de nuitées (>= 1)">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_E3OKEVl5EfG0J6TzsKCRug"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_iMR_kFl5EfG0J6TzsKCRug" expression="idChambreInput != null" name="idChambreInputRequired">
+              <inputNames>idChambreInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_jOayAFl5EfG0J6TzsKCRug" expression="dateArriveeInput != null" name="dateArriveeInputRequired">
+              <inputNames>dateArriveeInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_kDmGgFl5EfG0J6TzsKCRug" expression="nombreNuitsInput != null" name="nombreNuitsInputRequired">
+              <inputNames>nombreNuitsInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_krt2cFl5EfG0J6TzsKCRug" expression="nombreNuitsInput == null || nombreNuitsInput >= 1" name="nombreNuitsMin1">
+              <inputNames>nombreNuitsInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_lam8wFl5EfG0J6TzsKCRug" expression="dateArriveeInput == null || !dateArriveeInput.isBefore(java.time.LocalDate.now())" name="dateArriveeFuture">
+              <inputNames>dateArriveeInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_dhhITFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:Task" xmi:id="_m5GisFfGEfGNssooKuF_YA" name="Passer une commande" outgoing="_tFCggFfGEfGNssooKuF_YA" incoming="_oYM98FfGEfGNssooKuF_YA" overrideActorsOfTheLane="false">
