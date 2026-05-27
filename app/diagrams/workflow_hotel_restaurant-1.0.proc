@@ -481,6 +481,19 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_D15MsVfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_D15MsFfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_D15MslfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_ePe2AFl9EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_ePe2AVl9EfG0J6TzsKCRug" name="reservation" content="reservation" type="TYPE_VARIABLE" returnType="com.company.model.Reservation">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_eyzlgFl9EfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_ePe2All9EfG0J6TzsKCRug" name="pieceIdentite()" content="pieceIdentiteOKInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_lEBr8Fl9EfG0J6TzsKCRug" name="pieceIdentiteOKInput" type="BOOLEAN" description="true si la pièce d'identité du client est valide et correspond à la réservation">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_lEBr8Vl9EfG0J6TzsKCRug"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_ePe2A1l9EfG0J6TzsKCRug" type="JAVA_METHOD" expression="setPieceIdentiteOK">
+              <inputTypes>java.lang.Boolean</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_D15Ms1fIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_D15MtFfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_D15MtVfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -489,13 +502,41 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_GpQFKlfIEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNh1jzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_GpQFKVfIEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_GpQFKVfIEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_XimHQFl9EfG0J6TzsKCRug" name="pieceIdentiteOKInput" type="BOOLEAN" description="true si la pièce d'identité du client est valide et correspond à la réservation">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_XimHQVl9EfG0J6TzsKCRug"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_aMWXwFl9EfG0J6TzsKCRug" expression="pieceIdentiteOKInput != null" errorMessage="La validation de la pièce d'identité est obligatoire." name="pieceIdentiteOKInputRequired">
+              <inputNames>pieceIdentiteOKInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_GpQFLFfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:Task" xmi:id="_HEJRYFfIEfGNssooKuF_YA" name="Émettre facture" outgoing="_QjDb3FfIEfGNssooKuF_YA" incoming="_FlLZAVfIEfGNssooKuF_YA" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_FlKx8lfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_FlKx8VfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_FlKx81fIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_rplqsFl9EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_rplqsVl9EfG0J6TzsKCRug" name="facture" content="facture" type="TYPE_VARIABLE" returnType="com.company.model.Facture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_sPoXAFl9EfG0J6TzsKCRug" documentation="Facture émise par le réceptionniste à la tâche Émettre facture. Liée à la réservation via idReservation, agrège lignes hôtel + bascule resto" name="facture" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Facture"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_rplqsll9EfG0J6TzsKCRug" name="getFacture()" content="import java.time.LocalDateTime&#xD;&#xA;import java.time.format.DateTimeFormatter&#xD;&#xA;&#xD;&#xA;def factureVar = new com.company.model.Facture()&#xD;&#xA;&#xD;&#xA;def now = LocalDateTime.now()&#xD;&#xA;def annee = now.getYear()&#xD;&#xA;def suffixe = String.format(&quot;%06d&quot;, (System.currentTimeMillis() % 1000000) as Integer)&#xD;&#xA;factureVar.numeroFacture = &quot;F-${annee}-${suffixe}&quot;&#xD;&#xA;&#xD;&#xA;factureVar.idReservation = reservation.persistenceId&#xD;&#xA;factureVar.montantTotal = chambreChoisie.tarifNuit * reservation.nombreNuits&#xD;&#xA;factureVar.dateEmission = now&#xD;&#xA;factureVar.statut = 'EMISE'&#xD;&#xA;&#xD;&#xA;return factureVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.Facture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_x3U_UFl9EfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_x3U_UVl9EfG0J6TzsKCRug" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_rplqs1l9EfG0J6TzsKCRug" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_1g4f8Fl9EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_1g4f8Vl9EfG0J6TzsKCRug" name="ligneFactureHotel" content="ligneFactureHotel" type="TYPE_VARIABLE" returnType="com.company.model.LigneFacture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DI-GQFl-EfG0J6TzsKCRug" documentation="Ligne agrégée HOTEL de la facture (tarif chambre × nombre nuits). Créée à Émettre facture." name="ligneFactureHotel" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneFacture"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_1g4f8ll9EfG0J6TzsKCRug" name="getLigneFacture()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def ligneVar = new com.company.model.LigneFacture()&#xD;&#xA;ligneVar.idFacture = facture.persistenceId&#xD;&#xA;ligneVar.libelle = &quot;Séjour chambre ${chambreChoisie.numero} (${chambreChoisie.categorie}) - ${reservation.nombreNuits} nuit(s)&quot;&#xD;&#xA;ligneVar.montant = chambreChoisie.tarifNuit * reservation.nombreNuits&#xD;&#xA;ligneVar.origine = 'HOTEL'&#xD;&#xA;ligneVar.dateAjout = LocalDateTime.now()&#xD;&#xA;&#xD;&#xA;return ligneVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneFacture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_F2kU8Fl-EfG0J6TzsKCRug" documentation="Facture émise par le réceptionniste à la tâche Émettre facture. Liée à la réservation via idReservation, agrège lignes hôtel + bascule resto" name="facture" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Facture"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_F2kU8Vl-EfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_F2kU8ll-EfG0J6TzsKCRug" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_1g4f81l9EfG0J6TzsKCRug" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_FlKx9FfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_FlKx9VfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_FlKx9lfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1004,6 +1045,9 @@
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_o0hQwVkqEfG0J6TzsKCRug"/>
           </referencedElements>
         </defaultValue>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="__dBY8Fl9EfG0J6TzsKCRug" documentation="Ligne agrégée HOTEL de la facture (tarif chambre × nombre nuits). Créée à Émettre facture." name="ligneFactureHotel" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneFacture">
+        <defaultValue xmi:type="expression:Expression" xmi:id="__dBY8Vl9EfG0J6TzsKCRug" name="init_ligneFactureHotel()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneFacture"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
