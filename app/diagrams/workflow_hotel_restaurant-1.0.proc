@@ -889,7 +889,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_LoIvF1fKEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_LoIvFlfKEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:Task" xmi:id="_Ws9R8FfLEfGNssooKuF_YA" name="Remplacer les articles" outgoing="_7iPyQFjJEfGNAs_r4dbEXA" incoming="_cBgKPFfKEfGNssooKuF_YA" overrideActorsOfTheLane="false">
+        <elements xmi:type="process:Task" xmi:id="_Ws9R8FfLEfGNssooKuF_YA" name="Effectuer le ménage et remplacer les articles" outgoing="_7iPyQFjJEfGNAs_r4dbEXA" incoming="_cBgKPFfKEfGNssooKuF_YA" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_cBgKMlfKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_cBgKMVfKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_cBgKM1fKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
@@ -996,6 +996,42 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_At4rMlfOEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_At4rMVfOEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_At4rM1fOEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_m6JzMFmVEfG7Pp-Jfj4yJA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_m6JzMVmVEfG7Pp-Jfj4yJA" name="nbFacturesHotelJour" content="nbFacturesHotelJour" type="TYPE_VARIABLE" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:Data" xmi:id="_oCxoIFmVEfG7Pp-Jfj4yJA" documentation="Nombre de lignes de facture origine HOTEL du jour" name="nbFacturesHotelJour" dataType="_mM7131fFEfGNssooKuF_YA"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_m6JzMlmVEfG7Pp-Jfj4yJA" name="getLignesFactureHotel()" content="return ligneFactureDAO.countByDateAndOrigine(java.time.LocalDate.now(), 'HOTEL')" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_xnpQoFmVEfG7Pp-Jfj4yJA" name="ligneFactureDAO" content="ligneFactureDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.LigneFactureDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_m6JzM1mVEfG7Pp-Jfj4yJA" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_tF_qYFmVEfG7Pp-Jfj4yJA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_tF_qYVmVEfG7Pp-Jfj4yJA" name="nbFacturesRestoJour" content="nbFacturesRestoJour" type="TYPE_VARIABLE" returnType="java.lang.Long">
+              <referencedElements xmi:type="process:Data" xmi:id="_uFSkMFmVEfG7Pp-Jfj4yJA" documentation="Nombre de lignes de facture origine RESTAURANT du jour" name="nbFacturesRestoJour" dataType="_mM7131fFEfGNssooKuF_YA"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_tF_qYlmVEfG7Pp-Jfj4yJA" name="getLignesFactureResto()" content="return ligneFactureDAO.countByDateAndOrigine(java.time.LocalDate.now(), 'RESTAURANT')" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_wpipoFmVEfG7Pp-Jfj4yJA" name="ligneFactureDAO" content="ligneFactureDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.LigneFactureDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_tF_qY1mVEfG7Pp-Jfj4yJA" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_yzA3kFmVEfG7Pp-Jfj4yJA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_yzA3kVmVEfG7Pp-Jfj4yJA" name="montantTotalHotelJour" content="montantTotalHotelJour" type="TYPE_VARIABLE" returnType="java.lang.Double">
+              <referencedElements xmi:type="process:Data" xmi:id="_zNz9MFmVEfG7Pp-Jfj4yJA" documentation="Somme des montants origine HOTEL du jour" name="montantTotalHotelJour" dataType="_mM714FfFEfGNssooKuF_YA"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_yzA3klmVEfG7Pp-Jfj4yJA" name="getMontantTotalHotel()" content="def result = ligneFactureDAO.sumMontantByDateAndOrigine(java.time.LocalDate.now(), 'HOTEL')&#xD;&#xA;return result ?: 0.0d" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Double">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_1eHy8FmVEfG7Pp-Jfj4yJA" name="ligneFactureDAO" content="ligneFactureDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.LigneFactureDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_yzA3k1mVEfG7Pp-Jfj4yJA" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_2gIpkFmVEfG7Pp-Jfj4yJA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_2gIpkVmVEfG7Pp-Jfj4yJA" name="montantTotalRestoJour" content="montantTotalRestoJour" type="TYPE_VARIABLE" returnType="java.lang.Double">
+              <referencedElements xmi:type="process:Data" xmi:id="_3KnJ8FmVEfG7Pp-Jfj4yJA" documentation="Somme des montants origine RESTAURANT du jour" name="montantTotalRestoJour" dataType="_mM714FfFEfGNssooKuF_YA"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_2gIpklmVEfG7Pp-Jfj4yJA" name="getMontantTotalResto()" content="def result = ligneFactureDAO.sumMontantByDateAndOrigine(java.time.LocalDate.now(), 'RESTAURANT')&#xD;&#xA;return result ?: 0.0d" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Double">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_4jjS0FmVEfG7Pp-Jfj4yJA" name="ligneFactureDAO" content="ligneFactureDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.LigneFactureDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_2gIpk1mVEfG7Pp-Jfj4yJA" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_At4rNFfOEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_At4rNVfOEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_At4rNlfOEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1129,6 +1165,18 @@
       </data>
       <data xmi:type="process:Data" xmi:id="_e4fPYFmAEfG0J6TzsKCRug" documentation="Mode de paiement déclaré par le client à &quot;Payer l'addition&quot; (CASH/CARTE). Lu par la réceptionniste à &quot;Encaissement du montant&quot;." name="modePaiementChoisi" dataType="_mM714VfFEfGNssooKuF_YA">
         <defaultValue xmi:type="expression:Expression" xmi:id="_e4fPYVmAEfG0J6TzsKCRug" content=""/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_PVdZ0FmVEfG7Pp-Jfj4yJA" documentation="Nombre de lignes de facture origine HOTEL du jour" name="nbFacturesHotelJour" dataType="_mM7131fFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_PVdZ0VmVEfG7Pp-Jfj4yJA" content="" returnType="java.lang.Long"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_Rd_MkFmVEfG7Pp-Jfj4yJA" documentation="Nombre de lignes de facture origine RESTAURANT du jour" name="nbFacturesRestoJour" dataType="_mM7131fFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Rd_MkVmVEfG7Pp-Jfj4yJA" content="" returnType="java.lang.Long"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_Thul8FmVEfG7Pp-Jfj4yJA" documentation="Somme des montants origine HOTEL du jour" name="montantTotalHotelJour" dataType="_mM714FfFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Thul8VmVEfG7Pp-Jfj4yJA" content="" returnType="java.lang.Double"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_WAIiEFmVEfG7Pp-Jfj4yJA" documentation="Somme des montants origine RESTAURANT du jour" name="montantTotalRestoJour" dataType="_mM714FfFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_WAIiEVmVEfG7Pp-Jfj4yJA" content="" returnType="java.lang.Double"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -1550,24 +1598,24 @@
           <children xmi:type="notation:DecorationNode" xmi:id="_AwOxZlfKEfGNssooKuF_YA" type="7002">
             <children xmi:type="notation:Shape" xmi:id="_LoIvGFfKEfGNssooKuF_YA" type="3027" element="_LoIIAFfKEfGNssooKuF_YA" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
               <children xmi:type="notation:DecorationNode" xmi:id="_LoIvGlfKEfGNssooKuF_YA" type="5017"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LoIvGVfKEfGNssooKuF_YA" x="411" y="16" width="154" height="77"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LoIvGVfKEfGNssooKuF_YA" x="411" y="28" width="154" height="77"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_Ws95A1fLEfGNssooKuF_YA" type="3005" element="_Ws9R8FfLEfGNssooKuF_YA" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
               <children xmi:type="notation:DecorationNode" xmi:id="_Ws95BVfLEfGNssooKuF_YA" type="5005"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ws95BFfLEfGNssooKuF_YA" x="879" y="18" width="146" height="73"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ws95BFfLEfGNssooKuF_YA" x="879" y="18" width="189" height="94"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_eHaE4FjJEfGNAs_r4dbEXA" type="3009" element="_eHYPsFjJEfGNAs_r4dbEXA" fontName="Segoe UI">
               <children xmi:type="notation:DecorationNode" xmi:id="_eHaE4ljJEfGNAs_r4dbEXA" type="5020">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_eHar8FjJEfGNAs_r4dbEXA" y="5"/>
               </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eHaE4VjJEfGNAs_r4dbEXA" x="1302" y="33" width="43" height="43"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eHaE4VjJEfGNAs_r4dbEXA" x="1302" y="43" width="43" height="43"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_AwOxYVfKEfGNssooKuF_YA"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_AwOxYlfKEfGNssooKuF_YA" fontName="Segoe UI"/>
           <styles xmi:type="notation:LineStyle" xmi:id="_AwOxY1fKEfGNssooKuF_YA"/>
           <styles xmi:type="notation:FillStyle" xmi:id="_AwOxZ1fKEfGNssooKuF_YA"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AwOxZFfKEfGNssooKuF_YA" x="53" y="959" width="1932" height="133"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AwOxZFfKEfGNssooKuF_YA" x="28" y="902" width="1932" height="133"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_rIor8FfLEfGNssooKuF_YA" type="3007" element="_rIoE4FfLEfGNssooKuF_YA">
           <children xmi:type="notation:DecorationNode" xmi:id="_rIor9VfLEfGNssooKuF_YA" type="5007"/>
