@@ -168,6 +168,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_lE0PslfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_lE0PsVfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_lE0Ps1fIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_hgvEAFmAEfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_hgvEAVmAEfG0J6TzsKCRug" name="modePaiementChoisi" content="modePaiementChoisi" type="TYPE_VARIABLE">
+              <referencedElements xmi:type="process:Data" xmi:id="_i0iOMFmAEfG0J6TzsKCRug" documentation="Mode de paiement déclaré par le client à &quot;Payer l'addition&quot; (CASH/CARTE). Lu par la réceptionniste à &quot;Encaissement du montant&quot;." name="modePaiementChoisi" dataType="_mM714VfFEfGNssooKuF_YA"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_hgvEAlmAEfG0J6TzsKCRug" name="getModePaiement()" content="modePaiementInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_mW9zIFmAEfG0J6TzsKCRug" name="modePaiementInput" description="Mode de paiement choisi par le client : CASH ou CARTE">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_mW9zIVmAEfG0J6TzsKCRug"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_hgvEA1mAEfG0J6TzsKCRug" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_lE0PtFfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_lE0PtVfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_lE0PtlfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -176,7 +187,17 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_lxiLylfIEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNhVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_lxiLyVfIEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_lxiLyVfIEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_KLKEsFmAEfG0J6TzsKCRug" name="modePaiementInput" description="Mode de paiement choisi par le client : CASH ou CARTE">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_KLKEsVmAEfG0J6TzsKCRug"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_MMJsEFmAEfG0J6TzsKCRug" expression="modePaiementInput != null" errorMessage="Le mode de paiement est obligatoire." name="modePaiementInputRequired">
+              <inputNames>modePaiementInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_M1EtQFmAEfG0J6TzsKCRug" expression="modePaiementInput == null || modePaiementInput in ['CASH', 'CARTE']" errorMessage="Mode de paiement invalide : CASH ou CARTE attendu." name="modePaiementInputValid">
+              <inputNames>modePaiementInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_lxiLzFfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ServiceTask" xmi:id="_EgYesFfJEfGNssooKuF_YA" name="Notification réservation effectuée" outgoing="_IQQCt1fJEfGNssooKuF_YA" incoming="_EgZFwFfJEfGNssooKuF_YA">
@@ -288,6 +309,19 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_QjDb0lfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_QjDb0VfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_QjDb01fIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_7xHScFl-EfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_7xHScVl-EfG0J6TzsKCRug" name="reservation" content="reservation" type="TYPE_VARIABLE" returnType="com.company.model.Reservation">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8a_V4Fl-EfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_7xHScll-EfG0J6TzsKCRug" name="setFacture()" content="factureAccepteeInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_A9nMgFl_EfG0J6TzsKCRug" name="factureAccepteeInput" type="BOOLEAN" description="true si le client accepte la facture et accepte de payer">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_A9nMgVl_EfG0J6TzsKCRug"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_7xHSc1l-EfG0J6TzsKCRug" type="JAVA_METHOD" expression="setFactureAcceptee">
+              <inputTypes>java.lang.Boolean</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_QjDb1FfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_QjDb1VfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_QjDb1lfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -296,7 +330,14 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_GwHd-VfPEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNhljzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_GwHd-FfPEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_GwHd-FfPEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_1ZELQFl-EfG0J6TzsKCRug" name="factureAccepteeInput" type="BOOLEAN" description="true si le client accepte la facture et accepte de payer">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_1ZELQVl-EfG0J6TzsKCRug"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_3vsEYFl-EfG0J6TzsKCRug" expression="factureAccepteeInput != null" errorMessage="La décision d'accepter ou refuser la facture est obligatoire." name="factureAccepteeInputRequired">
+              <inputNames>factureAccepteeInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_GwHd-1fPEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ServiceTask" xmi:id="_8Or0wFi5EfGcr_ZmOb_yGw" name="Notification de réservation non poursuivie" outgoing="_C-MZsFi6EfGcr_ZmOb_yGw" incoming="_Z1aYAFfIEfGNssooKuF_YA">
@@ -552,6 +593,33 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_zn7T0lfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_zn7T0VfIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_zn7T01fIEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_6qf9wFmAEfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_6qf9wVmAEfG0J6TzsKCRug" name="reservation" content="reservation" type="TYPE_VARIABLE" returnType="com.company.model.Reservation">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8RiNAFmAEfG0J6TzsKCRug" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_6qf9wlmAEfG0J6TzsKCRug" name="PAYEE" content="PAYEE"/>
+            <operator xmi:type="expression:Operator" xmi:id="_6qf9w1mAEfG0J6TzsKCRug" type="JAVA_METHOD" expression="setStatut">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_B7OZYFmBEfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_B7OZYVmBEfG0J6TzsKCRug" name="facture" content="facture" type="TYPE_VARIABLE" returnType="com.company.model.Facture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_De5yoFmBEfG0J6TzsKCRug" documentation="Facture émise par le réceptionniste à la tâche Émettre facture. Liée à la réservation via idReservation, agrège lignes hôtel + bascule resto" name="facture" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Facture"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_B7OZYlmBEfG0J6TzsKCRug" name="ENCAISSEE" content="ENCAISSEE"/>
+            <operator xmi:type="expression:Operator" xmi:id="_B7OZY1mBEfG0J6TzsKCRug" type="JAVA_METHOD" expression="setStatut">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_II5ckFmBEfG0J6TzsKCRug">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_II5ckVmBEfG0J6TzsKCRug" name="chambreChoisie" content="chambreChoisie" type="TYPE_VARIABLE" returnType="com.company.model.Chambre">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_IyqyUFmBEfG0J6TzsKCRug" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_II5cklmBEfG0J6TzsKCRug" name="OCCUPEE" content="OCCUPEE"/>
+            <operator xmi:type="expression:Operator" xmi:id="_II5ck1mBEfG0J6TzsKCRug" type="JAVA_METHOD" expression="setStatut">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_zn7T1FfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_zn7T1VfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_zn7T1lfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -560,7 +628,17 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_0L-cGVfIEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNiVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_0L-cGFfIEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_0L-cGFfIEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_o1LiAFmAEfG0J6TzsKCRug" name="modePaiementConfirmeInput" description="Mode de paiement confirmé par le réceptionniste après encaissement effectif (CASH ou CARTE). Peut différer de modePaiementChoisi du client.">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_o1LiAVmAEfG0J6TzsKCRug"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_rFDS4FmAEfG0J6TzsKCRug" expression="modePaiementConfirmeInput != null" errorMessage="Le mode de paiement confirmé est obligatoire." name="modePaiementConfirmeInputRequired">
+              <inputNames>modePaiementConfirmeInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_ry86sFmAEfG0J6TzsKCRug" expression="modePaiementConfirmeInput == null || modePaiementConfirmeInput in ['CASH', 'CARTE']" errorMessage="Mode de paiement invalide : CASH ou CARTE attendu." name="modePaiementConfirmeInputValid">
+              <inputNames>modePaiementConfirmeInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_0L-cG1fIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:ANDGateway" xmi:id="_7mJuoFfIEfGNssooKuF_YA" name="AND split séjour compta" outgoing="_8LScAVfIEfGNssooKuF_YA _EgZFwFfJEfGNssooKuF_YA" incoming="_7mKVt1fIEfGNssooKuF_YA">
@@ -1048,6 +1126,9 @@
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="__dBY8Fl9EfG0J6TzsKCRug" documentation="Ligne agrégée HOTEL de la facture (tarif chambre × nombre nuits). Créée à Émettre facture." name="ligneFactureHotel" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneFacture">
         <defaultValue xmi:type="expression:Expression" xmi:id="__dBY8Vl9EfG0J6TzsKCRug" name="init_ligneFactureHotel()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneFacture"/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_e4fPYFmAEfG0J6TzsKCRug" documentation="Mode de paiement déclaré par le client à &quot;Payer l'addition&quot; (CASH/CARTE). Lu par la réceptionniste à &quot;Encaissement du montant&quot;." name="modePaiementChoisi" dataType="_mM714VfFEfGNssooKuF_YA">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_e4fPYVmAEfG0J6TzsKCRug" content=""/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -1717,7 +1798,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_zn766FfIEfGNssooKuF_YA" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_zn765VfIEfGNssooKuF_YA" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zn765lfIEfGNssooKuF_YA" points="[62, 0, -37, -153]$[95, 0, -4, -153]$[95, 114, -4, -39]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zn765lfIEfGNssooKuF_YA" points="[62, 0, -37, -128]$[95, 0, -4, -128]$[95, 89, -4, -39]"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_7mKVulfIEfGNssooKuF_YA" type="4001" element="_7mKVt1fIEfGNssooKuF_YA" source="_0L-cHFfIEfGNssooKuF_YA" target="_7mKVs1fIEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_7mKVvVfIEfGNssooKuF_YA" type="6001">
