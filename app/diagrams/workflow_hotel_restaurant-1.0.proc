@@ -284,12 +284,6 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_EgYeuFfJEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_EgYet1fJEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:IntermediateCatchTimerEvent" xmi:id="_IQPboFfJEfGNssooKuF_YA" name="Séjour à l'hôtel" outgoing="_OCDCOFfJEfGNssooKuF_YA" incoming="_IQQCt1fJEfGNssooKuF_YA">
-          <dynamicLabel xmi:type="expression:Expression" xmi:id="_IQQCsVfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
-          <dynamicDescription xmi:type="expression:Expression" xmi:id="_IQQCsFfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
-          <stepSummary xmi:type="expression:Expression" xmi:id="_IQQCslfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
-          <condition xmi:type="expression:Expression" xmi:id="_cyg2wFfSEfGNssooKuF_YA" name="23:00:00" content="82800000L" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long"/>
-        </elements>
         <elements xmi:type="process:ANDGateway" xmi:id="_OCDCMFfJEfGNssooKuF_YA" name="AND fork séjour ménage" outgoing="_O3utAFfJEfGNssooKuF_YA _LoIvG1fKEfGNssooKuF_YA" incoming="_OCDCOFfJEfGNssooKuF_YA">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_OCDCMlfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_OCDCMVfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
@@ -422,6 +416,14 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_8OxUVVi5EfGcr_ZmOb_yGw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_8Ox7YVi5EfGcr_ZmOb_yGw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_8Ox7YFi5EfGcr_ZmOb_yGw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:IntermediateCatchTimerEvent" xmi:id="_GoHu4FmYEfG7Pp-Jfj4yJA" name="Séjour à l'hôtel" outgoing="_OCDCOFfJEfGNssooKuF_YA" incoming="_IQQCt1fJEfGNssooKuF_YA">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_IQQCsVfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_IQQCsFfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_IQQCslfJEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <condition xmi:type="expression:Expression" xmi:id="_cyg2wFfSEfGNssooKuF_YA" name="getDateNettoyage()" content="java.util.Date.from(&#xA;    reservation.dateArrivee&#xA;        .plusDays(reservation.nombreNuits.longValue())&#xA;        .atTime(12, 0)&#xA;        .atZone(java.time.ZoneId.systemDefault())&#xA;        .toInstant()&#xA;)" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
+            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_fJo7UFulEfGfLJZvfBJ9rQ" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+          </condition>
         </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_dXtPgFfHEfGNssooKuF_YA" name="Réceptionniste" actor="_v_glkFgeEfGrWNuIOdERUw">
@@ -893,6 +895,53 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_cBgKMlfKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_cBgKMVfKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_cBgKM1fKEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <connectors xmi:type="process:Connector" xmi:id="_cC4JQFumEfGfLJZvfBJ9rQ" documentation="Charge les StockArticle correspondants à la dotation de chambreChoisie pour décrément ultérieur." name="chargerStocksADecrementer" definitionId="scripting-groovy-script" event="ON_ENTER" definitionVersion="1.0.1">
+            <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_cC4JQVumEfGfLJZvfBJ9rQ" definitionId="scripting-groovy-script" version="1.0.1" modelVersion="9">
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_cC4JQlumEfGfLJZvfBJ9rQ" key="script">
+                <expression xmi:type="expression:Expression" xmi:id="_cC4JQ1umEfGfLJZvfBJ9rQ" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_cC4JRFumEfGfLJZvfBJ9rQ" key="variables">
+                <expression xmi:type="expression:Expression" xmi:id="_cC4JRVumEfGfLJZvfBJ9rQ" returnType="java.util.List" returnTypeFixed="true"/>
+              </parameters>
+              <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_cC4JRlumEfGfLJZvfBJ9rQ" key="fakeScriptExpression">
+                <expression xmi:type="expression:Expression" xmi:id="_cC4JR1umEfGfLJZvfBJ9rQ" name="loadStocks()" content="def dotations = dotationChambreDAO.findByChambre(chambreChoisie.persistenceId, 0, 100)&#xD;&#xA;&#xD;&#xA;def allStocks = stockArticleDAO.find(0, 1000)&#xD;&#xA;def idArticlesConcernes = dotations.collect { it.idArticle } as Set&#xD;&#xA;&#xD;&#xA;def stocks = allStocks.findAll { stock -> idArticlesConcernes.contains(stock.idArticle) }&#xD;&#xA;&#xD;&#xA;return stocks" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object" returnTypeFixed="true">
+                  <referencedElements xmi:type="expression:Expression" xmi:id="_cC4JSFumEfGfLJZvfBJ9rQ" name="dotationChambreDAO" content="dotationChambreDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.DotationChambreDAO" returnTypeFixed="true"/>
+                  <referencedElements xmi:type="expression:Expression" xmi:id="_cC4JSVumEfGfLJZvfBJ9rQ" name="stockArticleDAO" content="stockArticleDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.StockArticleDAO" returnTypeFixed="true"/>
+                  <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_cC4JSlumEfGfLJZvfBJ9rQ" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+                </expression>
+              </parameters>
+            </configuration>
+            <outputs xmi:type="expression:Operation" xmi:id="_cC4JS1umEfGfLJZvfBJ9rQ">
+              <leftOperand xmi:type="expression:Expression" xmi:id="_cC4JTFumEfGfLJZvfBJ9rQ" name="stocksADecrementer" content="stocksADecrementer" type="TYPE_VARIABLE" returnType="com.company.model.StockArticle">
+                <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_cC4JTVumEfGfLJZvfBJ9rQ" documentation="Liste des StockArticle à décrémenter selon la dotation de chambreChoisie. Alimentée juste avant la tâche." name="stocksADecrementer" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.StockArticle"/>
+              </leftOperand>
+              <rightOperand xmi:type="expression:Expression" xmi:id="_cC4JTlumEfGfLJZvfBJ9rQ" name="checkoutResult()" content="result as List&lt;com.company.model.StockArticle>" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.StockArticle">
+                <referencedElements xmi:type="definition:Output" xmi:id="_cC4JT1umEfGfLJZvfBJ9rQ" name="result" type="java.lang.Object"/>
+              </rightOperand>
+              <operator xmi:type="expression:Operator" xmi:id="_cC4JUFumEfGfLJZvfBJ9rQ" type="ASSIGNMENT"/>
+            </outputs>
+          </connectors>
+          <operations xmi:type="expression:Operation" xmi:id="_hBIL8FumEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_hBIL8VumEfGfLJZvfBJ9rQ" name="stocksADecrementer" content="stocksADecrementer" type="TYPE_VARIABLE" returnType="com.company.model.StockArticle">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_i_UW8FumEfGfLJZvfBJ9rQ" documentation="Liste des StockArticle à décrémenter selon la dotation de chambreChoisie. Alimentée juste avant la tâche." name="stocksADecrementer" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.StockArticle"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_hBIL8lumEfGfLJZvfBJ9rQ" name="getStock()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def dotations = dotationChambreDAO.findByChambre(chambreChoisie.persistenceId, 0, 100)&#xD;&#xA;&#xD;&#xA;def quantiteParArticle = dotations.collectEntries { [(it.idArticle): it.quantiteRequise] }&#xD;&#xA;&#xD;&#xA;def coefNuits = reservation.nombreNuits&#xD;&#xA;&#xD;&#xA;def now = LocalDateTime.now()&#xD;&#xA;stocksADecrementer.each { stock ->&#xD;&#xA;    def quantiteParNuit = quantiteParArticle[stock.idArticle] ?: 0&#xD;&#xA;    def quantiteTotale = quantiteParNuit * coefNuits&#xD;&#xA;    stock.quantiteDisponible = stock.quantiteDisponible - quantiteTotale&#xD;&#xA;    stock.derniereMaj = now&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return stocksADecrementer" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.StockArticle">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_mWTg4FumEfGfLJZvfBJ9rQ" documentation="Réservation principale de l'instance. Créée à l'instanciation depuis le contrat client, mise à jour tout au long du flux (statut, pièce d'identité, lien facture)." name="reservation" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Reservation"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_mWTg4VumEfGfLJZvfBJ9rQ" name="dotationChambreDAO" content="dotationChambreDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.DotationChambreDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_mWTg4lumEfGfLJZvfBJ9rQ" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_mWTg41umEfGfLJZvfBJ9rQ" documentation="Liste des StockArticle à décrémenter selon la dotation de chambreChoisie. Alimentée juste avant la tâche." name="stocksADecrementer" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.StockArticle"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_hBIL81umEfGfLJZvfBJ9rQ" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_n6YiwFumEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_n6YiwVumEfGfLJZvfBJ9rQ" name="chambreChoisie" content="chambreChoisie" type="TYPE_VARIABLE" returnType="com.company.model.Chambre">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_oiKUcFumEfGfLJZvfBJ9rQ" documentation="Référence à la Chambre sélectionnée par le client à l'instanciation. Permet d'accéder à son tarifNuit pour le calcul de facture et à son statut pour la machine à états (PROPRE → OCCUPEE → SALE → PROPRE)" name="chambreChoisie" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.Chambre"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_n6YiwlumEfGfLJZvfBJ9rQ" name="setStatut()" content="'PROPRE'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_n6Yiw1umEfGfLJZvfBJ9rQ" type="JAVA_METHOD" expression="setStatut">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_cBgKNFfKEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_cBgKNVfKEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_cBgKNlfKEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -1178,6 +1227,9 @@
       <data xmi:type="process:Data" xmi:id="_WAIiEFmVEfG7Pp-Jfj4yJA" documentation="Somme des montants origine RESTAURANT du jour" name="montantTotalRestoJour" dataType="_mM714FfFEfGNssooKuF_YA">
         <defaultValue xmi:type="expression:Expression" xmi:id="_WAIiEVmVEfG7Pp-Jfj4yJA" content="" returnType="java.lang.Double"/>
       </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_p8px8FulEfGfLJZvfBJ9rQ" documentation="Liste des StockArticle à décrémenter selon la dotation de chambreChoisie. Alimentée juste avant la tâche." name="stocksADecrementer" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.StockArticle">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_p8qZAFulEfGfLJZvfBJ9rQ" name="init_stocksADecrementer()" content="return new ArrayList&lt;com.company.model.StockArticle>()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.StockArticle"/>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -1294,11 +1346,11 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_EgZFwVfJEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_EgZFwlfJEfGNssooKuF_YA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_IQQCt1fJEfGNssooKuF_YA" target="_IQPboFfJEfGNssooKuF_YA" source="_EgYesFfJEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_IQQCt1fJEfGNssooKuF_YA" target="_GoHu4FmYEfG7Pp-Jfj4yJA" source="_EgYesFfJEfGNssooKuF_YA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_IQQCuFfJEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_IQQCuVfJEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_OCDCOFfJEfGNssooKuF_YA" target="_OCDCMFfJEfGNssooKuF_YA" source="_IQPboFfJEfGNssooKuF_YA">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_OCDCOFfJEfGNssooKuF_YA" target="_OCDCMFfJEfGNssooKuF_YA" source="_GoHu4FmYEfG7Pp-Jfj4yJA">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_OCDCOVfJEfGNssooKuF_YA"/>
         <condition xmi:type="expression:Expression" xmi:id="_OCDCOlfJEfGNssooKuF_YA" name="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -1492,12 +1544,6 @@
               <children xmi:type="notation:DecorationNode" xmi:id="_EgYeu1fJEfGNssooKuF_YA" type="5017"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EgYeulfJEfGNssooKuF_YA" x="1251" y="478" width="145" height="72"/>
             </children>
-            <children xmi:type="notation:Shape" xmi:id="_IQQCs1fJEfGNssooKuF_YA" type="3017" element="_IQPboFfJEfGNssooKuF_YA" fontName="Segoe UI">
-              <children xmi:type="notation:DecorationNode" xmi:id="_IQQCtVfJEfGNssooKuF_YA" type="5032">
-                <layoutConstraint xmi:type="notation:Location" xmi:id="_IQQCtlfJEfGNssooKuF_YA" y="5"/>
-              </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IQQCtFfJEfGNssooKuF_YA" x="1480" y="419"/>
-            </children>
             <children xmi:type="notation:Shape" xmi:id="_OCDCNFfJEfGNssooKuF_YA" type="3009" element="_OCDCMFfJEfGNssooKuF_YA" fontName="Segoe UI">
               <children xmi:type="notation:DecorationNode" xmi:id="_OCDCNlfJEfGNssooKuF_YA" type="5020">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_OCDCN1fJEfGNssooKuF_YA" x="1" y="-64"/>
@@ -1523,6 +1569,12 @@
             <children xmi:type="notation:Shape" xmi:id="_8O2M0Fi5EfGcr_ZmOb_yGw" type="3027" element="_8Or0wFi5EfGcr_ZmOb_yGw" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
               <children xmi:type="notation:DecorationNode" xmi:id="_8O3a8Fi5EfGcr_ZmOb_yGw" type="5017"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8O2M0Vi5EfGcr_ZmOb_yGw" x="1367" y="312" width="156" height="78"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_GoPqsFmYEfG7Pp-Jfj4yJA" type="3017" element="_GoHu4FmYEfG7Pp-Jfj4yJA" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_GoPqslmYEfG7Pp-Jfj4yJA" type="5032">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_GoQRwFmYEfG7Pp-Jfj4yJA" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GoPqsVmYEfG7Pp-Jfj4yJA" x="1480" y="419" width="30" height="30"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_mM7181fFEfGNssooKuF_YA"/>
@@ -1869,14 +1921,14 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_EgZFxFfJEfGNssooKuF_YA" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EgZFxVfJEfGNssooKuF_YA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_IQQCulfJEfGNssooKuF_YA" type="4001" element="_IQQCt1fJEfGNssooKuF_YA" source="_EgYeuVfJEfGNssooKuF_YA" target="_IQQCs1fJEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
+    <edges xmi:type="notation:Connector" xmi:id="_IQQCulfJEfGNssooKuF_YA" type="4001" element="_IQQCt1fJEfGNssooKuF_YA" source="_EgYeuVfJEfGNssooKuF_YA" target="_GoPqsFmYEfG7Pp-Jfj4yJA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_IQQpwFfJEfGNssooKuF_YA" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_IQQpwVfJEfGNssooKuF_YA" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_IQQCu1fJEfGNssooKuF_YA" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_IQQCvFfJEfGNssooKuF_YA" points="[0, -36, -172, 44]$[0, -81, -172, -1]$[157, -81, -15, -1]"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_OCDCO1fJEfGNssooKuF_YA" type="4001" element="_OCDCOFfJEfGNssooKuF_YA" source="_IQQCs1fJEfGNssooKuF_YA" target="_OCDCNFfJEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
+    <edges xmi:type="notation:Connector" xmi:id="_OCDCO1fJEfGNssooKuF_YA" type="4001" element="_OCDCOFfJEfGNssooKuF_YA" source="_GoPqsFmYEfG7Pp-Jfj4yJA" target="_OCDCNFfJEfGNssooKuF_YA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_OCDCPlfJEfGNssooKuF_YA" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_OCDCP1fJEfGNssooKuF_YA" y="-10"/>
       </children>
