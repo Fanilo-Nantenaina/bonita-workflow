@@ -103,6 +103,33 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_m5GislfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_m5GisVfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_m5Gis1fGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_3phfsFunEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_3phfsVunEfGfLJZvfBJ9rQ" name="lignesCommande" content="lignesCommande" type="TYPE_VARIABLE" returnType="com.company.model.LigneCommande">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_4F8V8FunEfGfLJZvfBJ9rQ" documentation="Lignes de la commande resto créées à Passer une commande. Liées à commandeResto via idCommande." name="lignesCommande" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneCommande"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_3phfslunEfGfLJZvfBJ9rQ" name="getLignes()" content="def lignesVar = new ArrayList&lt;com.company.model.LigneCommande>()&#xD;&#xA;&#xD;&#xA;lignesInput.each { ligne ->&#xD;&#xA;    def menu = menuItemDAO.findByPersistenceId(ligne.idMenuInput.longValue())&#xD;&#xA;    if (menu != null) {&#xD;&#xA;        def ligneVar = new com.company.model.LigneCommande()&#xD;&#xA;        ligneVar.idCommande = commandeResto.persistenceId&#xD;&#xA;        ligneVar.idMenuItem = menu.persistenceId&#xD;&#xA;        ligneVar.quantite = ligne.quantiteInput&#xD;&#xA;        ligneVar.prixUnitaire = menu.prix&#xD;&#xA;        lignesVar.add(ligneVar)&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return lignesVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneCommande">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_6yA6oFunEfGfLJZvfBJ9rQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_6yA6oVunEfGfLJZvfBJ9rQ" name="menuItemDAO" content="menuItemDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.MenuItemDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_6yBhsFunEfGfLJZvfBJ9rQ" name="lignesInput" type="COMPLEX" description="Liste des lignes commandées : couples (menu, quantité)" multiple="true">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_6yBhsVunEfGfLJZvfBJ9rQ"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_3phfs1unEfGfLJZvfBJ9rQ" type="ASSIGNMENT"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_7-Wx8FunEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_7-Wx8VunEfGfLJZvfBJ9rQ" name="commandeResto" content="commandeResto" type="TYPE_VARIABLE" returnType="com.company.model.CommandeResto">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_8ieLoFunEfGfLJZvfBJ9rQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_7-Wx8lunEfGfLJZvfBJ9rQ" name="setMontantTotal()" content="def total = 0.0d&#xD;&#xA;lignesInput.each { ligne ->&#xD;&#xA;    def menu = menuItemDAO.findByPersistenceId(ligne.idMenuInput.longValue())&#xD;&#xA;    if (menu != null) {&#xD;&#xA;        total += menu.prix * ligne.quantiteInput&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;return total" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Double">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_B_-WIFuoEfGfLJZvfBJ9rQ" name="menuItemDAO" content="menuItemDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.MenuItemDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_B_-WIVuoEfGfLJZvfBJ9rQ" name="lignesInput" type="COMPLEX" description="Liste des lignes commandées : couples (menu, quantité)" multiple="true">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_B_-WIluoEfGfLJZvfBJ9rQ"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_7-Wx81unEfGfLJZvfBJ9rQ" type="JAVA_METHOD" expression="setMontantTotal">
+              <inputTypes>java.lang.Double</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_m5GitFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_m5GitVfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_m5GitlfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -111,7 +138,20 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_m5GiulfGEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNgljzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_m5GiuVfGEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_m5GiuVfGEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_PoX68FunEfGfLJZvfBJ9rQ" name="lignesInput" type="COMPLEX" description="Liste des lignes commandées : couples (menu, quantité)" multiple="true">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_PoX68VunEfGfLJZvfBJ9rQ"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_tg7fEFunEfGfLJZvfBJ9rQ" name="idMenuInput" type="INTEGER" description="persistenceId du MenuItem commandé">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_tg7fEVunEfGfLJZvfBJ9rQ"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_u9LaoFunEfGfLJZvfBJ9rQ" name="quantiteInput" type="INTEGER" description="Quantité commandée de ce menu (>= 1)">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_u9LaoVunEfGfLJZvfBJ9rQ"/>
+              </inputs>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_yy7kMFunEfGfLJZvfBJ9rQ" expression="lignesInput != null &amp;&amp; !lignesInput.isEmpty()" errorMessage="La commande doit contenir au moins une ligne." name="lignesInputNonVide">
+              <inputNames>lignesInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_m5GivFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:XORGateway" xmi:id="_sSbX0FfGEfGNssooKuF_YA" name="Client logé ?" outgoing="_1NRy8FfGEfGNssooKuF_YA _1pvsgFfGEfGNssooKuF_YA" incoming="_tFCggFfGEfGNssooKuF_YA">
@@ -1229,6 +1269,9 @@
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_p8px8FulEfGfLJZvfBJ9rQ" documentation="Liste des StockArticle à décrémenter selon la dotation de chambreChoisie. Alimentée juste avant la tâche." name="stocksADecrementer" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.StockArticle">
         <defaultValue xmi:type="expression:Expression" xmi:id="_p8qZAFulEfGfLJZvfBJ9rQ" name="init_stocksADecrementer()" content="return new ArrayList&lt;com.company.model.StockArticle>()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.StockArticle"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_KPkDMFunEfGfLJZvfBJ9rQ" documentation="Lignes de la commande resto créées à Passer une commande. Liées à commandeResto via idCommande." name="lignesCommande" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneCommande">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_KPkDMVunEfGfLJZvfBJ9rQ" name="init_lignesCommande()" content="return new ArrayList&lt;com.company.model.LigneCommande>()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneCommande"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
