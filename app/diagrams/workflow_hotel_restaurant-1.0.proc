@@ -163,6 +163,17 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_wdPycVfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_wdPycFfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_wdPyclfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_gkkEYFupEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_gkkEYVupEfGfLJZvfBJ9rQ" name="ligneFactureResto" content="ligneFactureResto" type="TYPE_VARIABLE" returnType="com.company.model.LigneFacture">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_hMws0FupEfGfLJZvfBJ9rQ" documentation="Ligne origine RESTAURANT ajoutée à la facture chambre du client logé. Créée à Ajouter à la note de chambre." name="ligneFactureResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneFacture"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_gkkEYlupEfGfLJZvfBJ9rQ" name="getLignes()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def reservationLiee = reservationDAO.findByPersistenceId(commandeResto.idReservationAssociee)&#xD;&#xA;if (reservationLiee == null) {&#xD;&#xA;    throw new RuntimeException(&quot;Réservation associée introuvable pour la commande resto &quot; + commandeResto.persistenceId)&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;def factures = factureDAO.find(0, 1000)&#xD;&#xA;def factureLiee = factures.find { it.idReservation == reservationLiee.persistenceId }&#xD;&#xA;if (factureLiee == null) {&#xD;&#xA;    throw new RuntimeException(&quot;Facture introuvable pour la réservation &quot; + reservationLiee.persistenceId)&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;def ligneVar = new com.company.model.LigneFacture()&#xD;&#xA;ligneVar.idFacture = factureLiee.persistenceId&#xD;&#xA;ligneVar.libelle = &quot;Restauration (commande #${commandeResto.persistenceId})&quot;&#xD;&#xA;ligneVar.montant = commandeResto.montantTotal&#xD;&#xA;ligneVar.origine = 'RESTAURANT'&#xD;&#xA;ligneVar.dateAjout = LocalDateTime.now()&#xD;&#xA;&#xD;&#xA;return ligneVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneFacture">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_klN2YFupEfGfLJZvfBJ9rQ" name="factureDAO" content="factureDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.FactureDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_klOdcFupEfGfLJZvfBJ9rQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_klOdcVupEfGfLJZvfBJ9rQ" name="reservationDAO" content="reservationDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.company.model.ReservationDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_gkkEY1upEfGfLJZvfBJ9rQ" type="ASSIGNMENT"/>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_wdPyc1fGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_wdPydFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_wdPydVfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -178,6 +189,28 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_yEDYMlfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_yEDYMVfGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_yEDYM1fGEfGNssooKuF_YA" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_5-QQgFupEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_5-QQgVupEfGfLJZvfBJ9rQ" name="commandeResto" content="commandeResto" type="TYPE_VARIABLE" returnType="com.company.model.CommandeResto">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_68PiwFupEfGfLJZvfBJ9rQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_5-QQglupEfGfLJZvfBJ9rQ" name="setStatut()" content="'PAYEE'" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_5-QQg1upEfGfLJZvfBJ9rQ" type="JAVA_METHOD" expression="setStatut">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="__u6AgFupEfGfLJZvfBJ9rQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="__u6AgVupEfGfLJZvfBJ9rQ" name="commandeResto" content="commandeResto" type="TYPE_VARIABLE" returnType="com.company.model.CommandeResto">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DHMyAFuqEfGfLJZvfBJ9rQ" documentation="Commande restaurant initiée par un client (logé ou extérieur). Créée dans la tâche Soumettre si le client choisit RESTO, reste null pour les workflows CHAMBRE." name="commandeResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.CommandeResto"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="__u6AglupEfGfLJZvfBJ9rQ" name="setModePaiement()" content="modePaiementRestoInput" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_HC_SIFuqEfGfLJZvfBJ9rQ" name="modePaiementRestoInput" description="Mode de paiement de la commande resto : CASH ou CARTE">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_HC_SIVuqEfGfLJZvfBJ9rQ"/>
+              </referencedElements>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="__u6Ag1upEfGfLJZvfBJ9rQ" type="JAVA_METHOD" expression="setModePaiement">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_yEDYNFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_yEDYNVfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_yEDYNlfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -186,7 +219,17 @@
           <formMapping xmi:type="process:FormMapping" xmi:id="_yEDYOlfGEfGNssooKuF_YA">
             <targetForm xmi:type="expression:Expression" xmi:id="_wplNhFjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_yEDYOVfGEfGNssooKuF_YA"/>
+          <contract xmi:type="process:Contract" xmi:id="_yEDYOVfGEfGNssooKuF_YA">
+            <inputs xmi:type="process:ContractInput" xmi:id="_n8QDoFupEfGfLJZvfBJ9rQ" name="modePaiementRestoInput" description="Mode de paiement de la commande resto : CASH ou CARTE">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_n8QDoVupEfGfLJZvfBJ9rQ"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_rh4tkFupEfGfLJZvfBJ9rQ" expression="modePaiementRestoInput != null" errorMessage="Le mode de paiement est obligatoire." name="modePaiementRestoInputRequired">
+              <inputNames>modePaiementRestoInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_sfp9YFupEfGfLJZvfBJ9rQ" expression="modePaiementRestoInput == null || modePaiementRestoInput in ['CASH', 'CARTE']" errorMessage="Mode de paiement invalide : CASH ou CARTE attendu." name="modePaiementRestoInputValid">
+              <inputNames>modePaiementRestoInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_yEDYPFfGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:EndEvent" xmi:id="_9q3DQFfGEfGNssooKuF_YA" name="Note ajoutée" incoming="_CDjh0FfHEfGNssooKuF_YA">
@@ -1272,6 +1315,9 @@
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_KPkDMFunEfGfLJZvfBJ9rQ" documentation="Lignes de la commande resto créées à Passer une commande. Liées à commandeResto via idCommande." name="lignesCommande" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneCommande">
         <defaultValue xmi:type="expression:Expression" xmi:id="_KPkDMVunEfGfLJZvfBJ9rQ" name="init_lignesCommande()" content="return new ArrayList&lt;com.company.model.LigneCommande>()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneCommande"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_dqCM8FupEfGfLJZvfBJ9rQ" documentation="Ligne origine RESTAURANT ajoutée à la facture chambre du client logé. Créée à Ajouter à la note de chambre." name="ligneFactureResto" dataType="_mM715FfFEfGNssooKuF_YA" className="com.company.model.LigneFacture">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_dqCM8VupEfGfLJZvfBJ9rQ" name="init_ligneFactureResto()" content="return null" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.company.model.LigneFacture"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_mM71xFfFEfGNssooKuF_YA">
         <targetForm xmi:type="expression:Expression" xmi:id="_wplNkVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
