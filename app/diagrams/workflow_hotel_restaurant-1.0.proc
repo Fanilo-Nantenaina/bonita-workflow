@@ -69,7 +69,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_dhhISFfGEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_dhhIR1fGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_dhhISlfGEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNgVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_Z9zuAFwFEfG_2oyNBQakqA" name="soumettreReservation" content="2617a1ba-a8db-4f7d-abe6-83566d1a3fb4" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_dhhISVfGEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_DiB4wFl5EfG0J6TzsKCRug" name="idChambreInput" type="INTEGER" description="persistenceId de la chambre choisie (Long converti via .longValue() au lookup)">
