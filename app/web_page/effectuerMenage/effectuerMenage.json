@@ -1,10 +1,10 @@
 {
-  "id" : "verifierChambre",
-  "name" : "verifierChambre",
+  "id" : "effectuerMenage",
+  "name" : "effectuerMenage",
   "type" : "form",
-  "uuid" : "b1087ad5-2402-40d9-b5bf-1e958028cad6",
+  "uuid" : "3ef97928-6d48-4e25-bd46-7aac7da2e4f7",
   "modelVersion" : "2.6",
-  "lastUpdate" : 1780152989743,
+  "lastUpdate" : 1780166081712,
   "description" : "Page generated with Bonita UI designer",
   "rows" : [
     [
@@ -14,7 +14,7 @@
           "xs" : 12
         },
         "propertyValues" : { },
-        "reference" : "b944c383-95f2-4267-bfa2-37da55fb7f87",
+        "reference" : "f59a584e-7d2b-4038-adb0-477b3376ede1",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -42,7 +42,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Vérifier la disponibilité de la chambre"
+                  "value" : "{{ task.displayName }}"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -51,13 +51,9 @@
                 "dimension" : {
                   "type" : "constant",
                   "value" : 12
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : false
                 }
               },
-              "reference" : "e0454a51-72b8-42c2-851d-fd32a47bbff9",
+              "reference" : "4da427c2-5ee5-4e81-a6a1-f5d011e917e3",
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
@@ -103,21 +99,9 @@
                 "dimension" : {
                   "type" : "constant",
                   "value" : 12
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
                 }
               },
-              "reference" : "e970b0c7-92f9-4b64-b1e9-2542fba9342a",
+              "reference" : "1a353f76-99cf-4f42-b78c-8cee8514afcd",
               "hasValidationError" : false,
               "id" : "pbText",
               "description" : ""
@@ -133,7 +117,7 @@
           "xs" : 12
         },
         "propertyValues" : { },
-        "reference" : "268c15f8-5089-403c-894f-ccfc87e49ddb",
+        "reference" : "027080d1-3e7f-47fa-83c0-6d55e34513b1",
         "hasValidationError" : false,
         "id" : "pbFormContainer",
         "container" : {
@@ -142,7 +126,7 @@
             "xs" : 12
           },
           "propertyValues" : { },
-          "reference" : "c112431b-8294-42c0-a8ad-c25d128dfa8a",
+          "reference" : "30f32a5c-b4fd-416a-ad39-d77c2f86216a",
           "hasValidationError" : false,
           "id" : "pbContainer",
           "rows" : [
@@ -150,58 +134,57 @@
               {
                 "type" : "component",
                 "dimension" : {
-                  "md" : 12,
-                  "sm" : 12,
                   "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
                   "lg" : 12
                 },
                 "propertyValues" : {
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
                   "cssClasses" : {
                     "type" : "constant",
                     "value" : ""
                   },
-                  "disabled" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "La chambre est-elle disponible aux dates demandées ?"
-                  },
-                  "dimension" : {
-                    "type" : "constant",
-                    "value" : 12
-                  },
-                  "value" : {
-                    "type" : "variable",
-                    "value" : "formInput.chambreDisponibleInput"
-                  },
-                  "required" : {
+                  "hidden" : {
                     "type" : "constant",
                     "value" : false
                   },
                   "allowHTML" : {
                     "type" : "constant",
                     "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Default label"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "text" : {
+                    "type" : "interpolation",
+                    "value" : "Chambre à nettoyer : {{ chambreCourante.numero }} ({{ chambreCourante.categorie }})"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "left"
                   }
                 },
-                "reference" : "fc7ba3f9-0513-4490-8b60-8ab9a8a9aa32",
+                "reference" : "8c260e13-daf0-4c47-a245-1ea9df1bbaa7",
                 "hasValidationError" : false,
-                "id" : "pbCheckbox",
-                "description" : ""
+                "id" : "pbText"
               }
             ],
             [
               {
-                "type" : "component",
+                "type" : "container",
                 "dimension" : {
                   "md" : 12,
                   "sm" : 12,
@@ -209,9 +192,8 @@
                   "lg" : 12
                 },
                 "propertyValues" : {
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : false
+                  "repeatedCollection" : {
+                    "type" : "variable"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -221,35 +203,167 @@
                     "type" : "constant",
                     "value" : ""
                   },
-                  "disabled" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "La chambre est-elle propre ?"
-                  },
                   "dimension" : {
                     "type" : "constant",
                     "value" : 12
-                  },
-                  "value" : {
-                    "type" : "variable",
-                    "value" : "formInput.chambrePropreInput"
-                  },
-                  "required" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : false
                   }
                 },
-                "reference" : "57bcd98b-2fa0-47a5-8e74-d8143655dd14",
+                "reference" : "b7628e28-ab1d-45dd-9d07-9f6bb827c488",
                 "hasValidationError" : false,
-                "id" : "pbCheckbox",
-                "description" : ""
+                "id" : "pbContainer",
+                "description" : "Auto generate ui for business object \"com.company.model.DotationChambre\"",
+                "rows" : [
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "d6fd5fe0-2485-489b-bc5b-1890ddf4e091",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "description" : "\"com.company.model.DotationChambre\" object from \"dotationChambre\" variable",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 12,
+                              "sm" : 12,
+                              "xs" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 4"
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "DotationChambre"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "left"
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              },
+                              "allowHTML" : {
+                                "type" : "constant",
+                                "value" : false
+                              }
+                            },
+                            "reference" : "0eaa2986-b621-4648-83a4-6d799c76871a",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle",
+                            "description" : ""
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "md" : 12,
+                              "sm" : 12,
+                              "xs" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "headers" : {
+                                "type" : "constant",
+                                "value" : [
+                                  "Article",
+                                  "Quantité"
+                                ]
+                              },
+                              "allowHtml" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "caption" : {
+                                "type" : "constant"
+                              },
+                              "condensed" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "bordered" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "selectedRow" : {
+                                "type" : "variable",
+                                "value" : "dotationChambre_selected"
+                              },
+                              "columnsKey" : {
+                                "type" : "constant",
+                                "value" : [
+                                  "idArticle",
+                                  "quantiteRequise"
+                                ]
+                              },
+                              "dimension" : {
+                                "type" : "constant",
+                                "value" : 12
+                              },
+                              "content" : {
+                                "type" : "expression",
+                                "value" : "dotationChambre"
+                              },
+                              "zebraStriping" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "allowHTML" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "striped" : {
+                                "type" : "constant",
+                                "value" : true
+                              }
+                            },
+                            "reference" : "361ba43f-d70a-4298-b330-8f6090827632",
+                            "hasValidationError" : false,
+                            "id" : "pbTable",
+                            "description" : ""
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ]
               }
             ],
             [
@@ -279,7 +393,7 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Valider"
+                    "value" : "Ménage terminé"
                   },
                   "dataToSend" : {
                     "type" : "expression",
@@ -348,7 +462,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "59023ff5-f93e-4b41-a310-c2fb65ef51ff",
+                "reference" : "48192164-6511-47fa-a0fa-ae39a588d297",
                 "hasValidationError" : false,
                 "id" : "pbButton",
                 "description" : ""
@@ -398,9 +512,17 @@
                   "dimension" : {
                     "type" : "constant",
                     "value" : 12
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
                   }
                 },
-                "reference" : "f1b07fbd-7f8d-4277-b2fa-a4c812d7298e",
+                "reference" : "e3f3442f-52d6-495a-aac8-cfb2b78a0a78",
                 "hasValidationError" : false,
                 "id" : "pbText",
                 "description" : ""
@@ -416,16 +538,6 @@
       "type" : "url",
       "value" : [
         "../API/bpm/userTask/{{taskId}}"
-      ],
-      "exposed" : false
-    },
-    "formInput" : {
-      "type" : "json",
-      "value" : [
-        "{\r",
-        "  \"chambreDisponibleInput\" : false,\r",
-        "  \"chambrePropreInput\" : false\r",
-        "}"
       ],
       "exposed" : false
     },
@@ -448,8 +560,7 @@
       "type" : "expression",
       "value" : [
         "return {",
-        "\tchambreDisponibleInput: $data.formInput.chambreDisponibleInput,",
-        "\tchambrePropreInput: $data.formInput.chambrePropreInput",
+        "",
         "}"
       ],
       "exposed" : false
@@ -467,20 +578,41 @@
         "id"
       ],
       "exposed" : false
+    },
+    "chambreCourante" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.company.model.Chambre/{{context.chambreChoisie_ref.persistenceId}}"
+      ],
+      "exposed" : false
+    },
+    "dotationChambre" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByIdChambre [com.company.model.DotationChambre]\",\"businessObjectName\":\"DotationChambre\",\"query\":{\"name\":\"findByIdChambre\",\"displayName\":\"findByIdChambre\"},\"id\":\"com.company.model.DotationChambre\",\"filters\":[{\"name\":\"idChambre\",\"type\":\"LONG\",\"collection\":false,\"value\":\"context.chambreChoisie_ref.persistenceId\"}],\"pagination\":{\"p\":\"0\",\"c\":\"100\"}}"
+      ],
+      "exposed" : false
+    },
+    "dotationChambre_selected" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
     }
   },
   "assets" : [
     {
-      "id" : "a9f2b377-804f-4722-8e1d-134b7d6bb843",
-      "name" : "localization.json",
-      "type" : "json",
+      "id" : "3cef1507-cec6-46b7-a899-ed515c533810",
+      "name" : "style.css",
+      "type" : "css",
       "order" : 0,
       "external" : false
     },
     {
-      "id" : "7d0bbf7b-0870-4422-80eb-74db96bf5521",
-      "name" : "style.css",
-      "type" : "css",
+      "id" : "938946f0-f508-444e-b6a5-114a5ffdf219",
+      "name" : "localization.json",
+      "type" : "json",
       "order" : 0,
       "external" : false
     }
