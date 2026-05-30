@@ -1,10 +1,10 @@
 {
-  "id" : "emettreFacture",
-  "name" : "emettreFacture",
+  "id" : "transfertFacture",
+  "name" : "transfertFacture",
   "type" : "form",
-  "uuid" : "05064ab4-74b2-4c77-a982-cc3bac56a69a",
+  "uuid" : "2e2d34a3-54de-4227-b67f-d5f0151451b6",
   "modelVersion" : "2.6",
-  "lastUpdate" : 1780172987123,
+  "lastUpdate" : 1780172662979,
   "description" : "Page generated with Bonita UI designer",
   "rows" : [
     [
@@ -14,7 +14,7 @@
           "xs" : 12
         },
         "propertyValues" : { },
-        "reference" : "eb4bcd74-609a-48bd-afcd-9a0099c963e3",
+        "reference" : "efd691de-7bf4-4d61-8416-766dfbb2c86c",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -51,13 +51,9 @@
                 "dimension" : {
                   "type" : "constant",
                   "value" : 12
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : false
                 }
               },
-              "reference" : "77bea491-f1a0-4c4a-ab86-74322454516b",
+              "reference" : "b740e0b5-f6ab-4d59-b1c3-7146fcec176f",
               "hasValidationError" : false,
               "id" : "pbTitle",
               "description" : ""
@@ -105,7 +101,7 @@
                   "value" : 12
                 }
               },
-              "reference" : "3e388ff8-a316-457f-97a7-95ce6e34d558",
+              "reference" : "95de28e7-74b5-40c9-8f63-d45807cfa00f",
               "hasValidationError" : false,
               "id" : "pbText",
               "description" : ""
@@ -120,17 +116,8 @@
         "dimension" : {
           "xs" : 12
         },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          }
-        },
-        "reference" : "ef2e92d9-da4c-49ca-99b9-e6d4cf9c0dfd",
+        "propertyValues" : { },
+        "reference" : "9a137484-433b-4cf8-9f69-95467c143a08",
         "hasValidationError" : false,
         "id" : "pbFormContainer",
         "container" : {
@@ -139,7 +126,7 @@
             "xs" : 12
           },
           "propertyValues" : { },
-          "reference" : "e83b9164-21db-410b-b3d6-f5d55db0fa91",
+          "reference" : "b2ae9cad-36df-412a-b7a8-9e921d794cda",
           "hasValidationError" : false,
           "id" : "pbContainer",
           "rows" : [
@@ -183,14 +170,14 @@
                   },
                   "text" : {
                     "type" : "interpolation",
-                    "value" : "Chambre : {{ chambreCourante.numero }} ({{ chambreCourante.categorie }})"
+                    "value" : "Transmettre au comptable la facture n° {{ factureCourante.numeroFacture }}"
                   },
                   "alignment" : {
                     "type" : "constant",
                     "value" : "left"
                   }
                 },
-                "reference" : "cafa72d4-6890-4c61-99b3-be48b5b17e9a",
+                "reference" : "2f96e180-2552-41ec-9e78-a38e2d63447a",
                 "hasValidationError" : false,
                 "id" : "pbText"
               }
@@ -235,118 +222,14 @@
                   },
                   "text" : {
                     "type" : "interpolation",
-                    "value" : "Tarif par nuit : {{ chambreCourante.tarifNuit }} MGA"
+                    "value" : "Montant : {{ factureCourante.montantTotal }} MGA"
                   },
                   "alignment" : {
                     "type" : "constant",
                     "value" : "left"
                   }
                 },
-                "reference" : "027fa512-5f28-4fa3-b64d-c2d29c2bf5a3",
-                "hasValidationError" : false,
-                "id" : "pbText"
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "Default label"
-                  },
-                  "labelPosition" : {
-                    "type" : "constant",
-                    "value" : "top"
-                  },
-                  "labelWidth" : {
-                    "type" : "constant",
-                    "value" : 4
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "Nombre de nuits : {{ reservationCourante.nombreNuits }}"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "left"
-                  }
-                },
-                "reference" : "5dd0537d-5dd2-4fdc-85ef-cc09f9333128",
-                "hasValidationError" : false,
-                "id" : "pbText"
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "Default label"
-                  },
-                  "labelPosition" : {
-                    "type" : "constant",
-                    "value" : "top"
-                  },
-                  "labelWidth" : {
-                    "type" : "constant",
-                    "value" : 4
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "Montant à facturer : {{ chambreCourante.tarifNuit * reservationCourante.nombreNuits }} MGA"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "left"
-                  }
-                },
-                "reference" : "14070bcc-0e3b-4f87-821a-9b973e85ebb0",
+                "reference" : "e3dffd16-99a1-4d3f-8489-b743b700f3d4",
                 "hasValidationError" : false,
                 "id" : "pbText"
               }
@@ -378,7 +261,7 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Émettre la facture"
+                    "value" : "J'ai transféré la copie"
                   },
                   "dataToSend" : {
                     "type" : "expression",
@@ -447,7 +330,7 @@
                     "value" : ""
                   }
                 },
-                "reference" : "17edc789-d425-4e40-bb13-817ef83b1354",
+                "reference" : "d8d5c431-0a79-4480-a4cf-b715eb73d477",
                 "hasValidationError" : false,
                 "id" : "pbButton",
                 "description" : ""
@@ -499,7 +382,7 @@
                     "value" : 12
                   }
                 },
-                "reference" : "9217833b-77ee-4b3c-82c6-a79025bd792c",
+                "reference" : "957c2fa6-fa32-4fdb-ac39-03a918e61fcd",
                 "hasValidationError" : false,
                 "id" : "pbText",
                 "description" : ""
@@ -556,31 +439,24 @@
       ],
       "exposed" : false
     },
-    "chambreCourante" : {
+    "factureCourante" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.company.model.Chambre/{{context.chambreChoisie_ref.persistenceId}}"
-      ],
-      "exposed" : false
-    },
-    "reservationCourante" : {
-      "type" : "url",
-      "value" : [
-        "../API/bdm/businessData/com.company.model.Reservation/{{context.reservation_ref.persistenceId}}"
+        "../API/bdm/businessData/com.company.model.Facture/{{context.facture_ref.persistenceId}}"
       ],
       "exposed" : false
     }
   },
   "assets" : [
     {
-      "id" : "8a390968-07aa-4d8d-a5d8-25c5a025e412",
+      "id" : "71c292b7-fe34-48f9-b412-5f60fa21ab39",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
       "external" : false
     },
     {
-      "id" : "819a7702-6d2c-4024-8726-37c4c7ee04de",
+      "id" : "420fa30c-3c1b-44ed-9356-b59b16ed5962",
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
