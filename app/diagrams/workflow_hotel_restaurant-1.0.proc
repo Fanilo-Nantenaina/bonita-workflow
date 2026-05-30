@@ -217,7 +217,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_yEDYOFfGEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_yEDYN1fGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_yEDYOlfGEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNhFjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_xjlrgFwQEfG_2oyNBQakqA" name="payerAuRestaurant" content="75d49084-1c5f-47ba-84fd-4ca4d5ee8a21" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_yEDYOVfGEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_n8QDoFupEfGfLJZvfBJ9rQ" name="modePaiementRestoInput" description="Mode de paiement de la commande resto : CASH ou CARTE">
@@ -268,7 +268,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_lE0PuFfIEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_lE0Pt1fIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_lxiLylfIEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNhVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_z1r74FwOEfG_2oyNBQakqA" name="payerAddition" content="9918e705-da7a-49a2-8821-129f340a4857" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_lxiLyVfIEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_KLKEsFmAEfG0J6TzsKCRug" name="modePaiementInput" description="Mode de paiement choisi par le client : CASH ou CARTE">
@@ -405,7 +405,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_QjDb2FfIEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_QjDb11fIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_GwHd-VfPEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNhljzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_s0tzgFwOEfG_2oyNBQakqA" name="constaterFacture" content="83039e1a-3e56-4859-9623-33a6ca4cfcd4" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_GwHd-FfPEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_1ZELQFl-EfG0J6TzsKCRug" name="factureAccepteeInput" type="BOOLEAN" description="true si le client accepte la facture et accepte de payer">
@@ -626,7 +626,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_D15Mt1fIEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_D15MtlfIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_GpQFKlfIEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNh1jzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_cl40cFwOEfG_2oyNBQakqA" name="verifierPieceIdentite" content="d2ee9c8b-d664-4122-ae76-41c50a84f92e" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_GpQFKVfIEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_XimHQFl9EfG0J6TzsKCRug" name="pieceIdentiteOKInput" type="BOOLEAN" description="true si la pièce d'identité du client est valide et correspond à la réservation">
@@ -711,7 +711,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_zn7T2FfIEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_zn7T11fIEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_0L-cGVfIEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNiVjzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_F5ccQFwPEfG_2oyNBQakqA" name="encaissementMontant" content="07d1fe01-3bf6-40cf-95c4-320d1d55abb8" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_0L-cGFfIEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_o1LiAFmAEfG0J6TzsKCRug" name="modePaiementConfirmeInput" description="Mode de paiement confirmé par le réceptionniste après encaissement effectif (CASH ou CARTE). Peut différer de modePaiementChoisi du client.">
@@ -870,7 +870,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_eTjzyFfHEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_eTjzx1fHEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_JzFfulfPEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNi1jzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_nUjMAFwNEfG_2oyNBQakqA" name="verifierChambre" content="b1087ad5-2402-40d9-b5bf-1e958028cad6" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_JzFfuVfPEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_Vfw-wFl7EfG0J6TzsKCRug" name="chambreDisponibleInput" type="BOOLEAN" description="true si la chambre est libre aux dates demandées">
