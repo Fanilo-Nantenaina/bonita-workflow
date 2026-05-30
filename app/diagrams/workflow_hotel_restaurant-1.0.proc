@@ -136,7 +136,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_m5GiuFfGEfGNssooKuF_YA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_m5Git1fGEfGNssooKuF_YA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_m5GiulfGEfGNssooKuF_YA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_wplNgljzEfGNAs_r4dbEXA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_j6lW0FweEfG_2oyNBQakqA" name="passerCommande" content="58083f88-a27b-4d5e-aa4f-c666b802bf02" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_m5GiuVfGEfGNssooKuF_YA">
             <inputs xmi:type="process:ContractInput" xmi:id="_PoX68FunEfGfLJZvfBJ9rQ" name="lignesInput" type="COMPLEX" description="Liste des lignes commandées : couples (menu, quantité)" multiple="true">
